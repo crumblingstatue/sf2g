@@ -1,0 +1,140 @@
+[package]
+name = "sfml"
+description = "Rust binding for sfml"
+version = "0.24.0"
+authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
+documentation = "https://docs.rs/sfml"
+repository = "https://github.com/jeremyletang/rust-sfml"
+license = "zlib-acknowledgement"
+keywords = ["sfml", "multimedia", "game"]
+readme = "README.md"
+edition = "2024"
+rust-version = "1.86"
+# We have to exclude a few things, otherwise, the package would be too big for crates.io
+exclude = [
+    "SFML/doc",
+    "SFML/examples",
+    "SFML/tools",
+    "SFML/extlibs/bin",
+    "SFML/extlibs/libs-android",
+    "SFML/extlibs/libs-ios",
+    "SFML/extlibs/libs-mingw-ucrt",
+    "SFML/extlibs/libs-osx",
+    "SFML/extlibs/libs-mingw/x64/libFLAC.a",
+    "SFML/extlibs/libs-mingw/x64/libogg.a",
+    "SFML/extlibs/libs-mingw/x86/libFLAC.a",
+    "SFML/extlibs/libs-mingw/x86/libogg.a",
+    "SFML/extlibs/libs-msvc/x64/flac.lib",
+    "SFML/extlibs/libs-msvc/x64/ogg.lib",
+    "SFML/extlibs/libs-msvc/x86/flac.lib",
+    "SFML/extlibs/libs-msvc/x86/ogg.lib",
+    "SFML/extlibs/libs-msvc-universal/x86/flac.lib",
+    "SFML/extlibs/libs-msvc-universal/x86/ogg.lib",
+    "SFML/extlibs/libs-msvc-universal/x64/flac.lib",
+    "SFML/extlibs/libs-msvc-universal/x64/ogg.lib",
+    "SFML/extlibs/libs-msvc-universal/ARM64",
+]
+[package.metadata.docs.rs]
+cargo-args = ["-Zunstable-options", "-Zrustdoc-scrape-examples"]
+rustdoc-args = ["-Zunstable-options", "--generate-link-to-definition"]
+
+[features]
+default = ["graphics"]
+window = ["dep:bitflags"]
+graphics = ["window"]
+serde = ["dep:serde"]
+# Used to skip running certain tests on CI, since it's running in a headless environment.
+ci-headless = []
+
+[dependencies]
+link-cplusplus = "1.0.9"
+num-traits = "0.2.15"
+
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
+optional = true
+
+[dependencies.widestring]
+version = "1.0"
+
+[dependencies.bitflags]
+version = "2.3.3"
+optional = true
+
+[build-dependencies]
+cc = "1.0.79"
+cmake = "0.1.53"
+pkg-config = "0.3.31"
+
+[dev-dependencies]
+rand.version = "0.9.0"
+rand.default-features = false
+rand.features = ["small_rng"]
+glu-sys = "0.1.4"
+
+[lib]
+name = "sfml"
+
+[[example]]
+name = "borrowed-resources"
+required-features = ["graphics"]
+doc-scrape-examples = true
+
+[[example]]
+name = "custom-drawable"
+required-features = ["graphics"]
+
+[[example]]
+name = "custom-shape"
+required-features = ["graphics"]
+
+[[example]]
+name = "mouse"
+required-features = ["graphics"]
+
+[[example]]
+name = "unicode-text-entry"
+required-features = ["graphics"]
+
+[[example]]
+name = "vertex-arrays"
+required-features = ["graphics"]
+
+[[example]]
+name = "shader"
+required-features = ["graphics"]
+
+[[example]]
+name = "cursor"
+required-features = ["graphics"]
+
+[[example]]
+name = "vertex-buffers"
+required-features = ["graphics"]
+
+[[example]]
+name = "spritemark"
+required-features = ["graphics"]
+
+[[example]]
+name = "opengl"
+required-features = ["graphics"]
+
+[[example]]
+name = "joystick"
+required-features = ["window"]
+
+[[example]]
+name = "rc-resources"
+required-features = ["graphics", "window"]
+
+[[example]]
+name = "window-test"
+required-features = ["graphics", "window"]
+
+[[example]]
+name = "opengl-context"
+required-features = ["window"]
+
+[workspace]
