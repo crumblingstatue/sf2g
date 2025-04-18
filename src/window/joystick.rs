@@ -30,7 +30,7 @@
 //! # Usage example
 //!
 //! ```
-//! use sfml::window::joystick;
+//! use sf2g::window::joystick;
 //!
 //! // If joystick #0 is connected
 //! if joystick::is_connected(0) {

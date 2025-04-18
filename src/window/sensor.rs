@@ -27,7 +27,7 @@
 //! # Usage example
 //!
 //! ```
-//! use sfml::window::sensor;
+//! use sf2g::window::sensor;
 //!
 //! if sensor::is_available(sensor::Type::GRAVITY) {
 //!     // enable the gravity sensor

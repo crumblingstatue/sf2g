@@ -9,7 +9,7 @@ use std::ops::{Add, AddAssign, Mul, MulAssign, Sub, SubAssign};
 /// There are 3 basic ways to construct a color
 ///
 /// ```
-/// use sfml::graphics::Color;
+/// use sf2g::graphics::Color;
 /// let color1 = Color::rgb(255, 0, 0); // from red/green/blue values
 /// let color2 = Color::rgba(255, 255, 255, 128); // from red/green/blue/alpha (transparency)
 /// let color3 = Color::GREEN; // from one of the associated color constants

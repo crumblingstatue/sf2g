@@ -62,9 +62,9 @@ use {
 /// using the types defined in the `glsl` module:
 ///
 /// ```no_run
-/// # use sfml::graphics::*;
-/// # use sfml::system::*;
-/// # use sfml::cpp::FBox;
+/// # use sf2g::graphics::*;
+/// # use sf2g::system::*;
+/// # use sf2g::cpp::FBox;
 /// let texture: FBox<Texture> = unimplemented!();
 /// let mut shader: &Shader = unimplemented!();
 /// let color: Color = unimplemented!();
@@ -82,7 +82,7 @@ use {
 /// [`RenderTarget::draw_with_renderstates`]. Example:
 ///
 /// ```no_run
-/// # use sfml::graphics::*;
+/// # use sf2g::graphics::*;
 /// # let shader: &Shader = unimplemented!();
 /// # let mut window: RenderWindow = unimplemented!();
 /// # let sprite: Sprite = unimplemented!();
@@ -117,7 +117,7 @@ use {
 /// directly as a raw shader for custom OpenGL geometry.
 ///
 /// ```no_run
-/// use sfml::graphics::*;
+/// use sf2g::graphics::*;
 /// # let shader: &Shader = unimplemented!();
 /// Shader::bind(Some(&shader));
 /// // ... render OpenGL geometry ...

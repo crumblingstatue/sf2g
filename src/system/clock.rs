@@ -10,7 +10,7 @@ decl_opaque! {
     ///
     /// # Usage example
     /// ```
-    /// # use sfml::system::Clock;
+    /// # use sf2g::system::Clock;
     /// let mut clock = Clock::start().unwrap();
     /// // ...
     /// let time1 = clock.elapsed_time();

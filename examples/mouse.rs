@@ -1,4 +1,4 @@
-use sfml::{SfResult, graphics::*, system::*, window::*};
+use sf2g::{SfResult, graphics::*, system::*, window::*};
 
 include!("../example_common.rs");
 

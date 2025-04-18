@@ -181,7 +181,7 @@ impl VertexBuffer {
     ///
     #[cfg_attr(feature = "ci-headless", doc = "```no_run")]
     #[cfg_attr(not(feature = "ci-headless"), doc = "```")]
-    /// use sfml::graphics::{PrimitiveType, VertexBuffer, VertexBufferUsage};
+    /// use sf2g::graphics::{PrimitiveType, VertexBuffer, VertexBufferUsage};
     ///
     /// let mut vb1 = VertexBuffer::new(PrimitiveType::TRIANGLES, 32, VertexBufferUsage::STATIC).unwrap();
     /// let mut vb2 = VertexBuffer::new(PrimitiveType::QUADS, 12, VertexBufferUsage::DYNAMIC).unwrap();

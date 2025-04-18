@@ -1,4 +1,4 @@
-use sfml::window::joystick;
+use sf2g::window::joystick;
 
 fn main() {
     joystick::update();

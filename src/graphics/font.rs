@@ -122,7 +122,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// let font = match Font::from_file("examples/resources/sansation.ttf") {
     ///     Ok(font) => font,
     ///     Err(e) => {
@@ -192,7 +192,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// # let font = Font::from_file("examples/resources/sansation.ttf").unwrap();
     /// let kerning = font.kerning(0, 0, 32);
     /// assert_eq!(kerning, 0.);
@@ -214,7 +214,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// # let font = Font::from_file("examples/resources/sansation.ttf").unwrap();
     /// let kerning = font.bold_kerning(0, 0, 32);
     /// assert_eq!(kerning, 0.);
@@ -234,7 +234,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// # let font = Font::from_file("examples/resources/sansation.ttf").unwrap();
     /// let line_spacing = font.line_spacing(32);
     /// assert_eq!(line_spacing, 35.);
@@ -274,7 +274,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// let font = Font::from_file("examples/resources/sansation.ttf").unwrap();
     /// let font_info = font.info();
     /// assert_eq!(font_info.family, "Sansation");
@@ -293,7 +293,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// # let font = Font::from_file("examples/resources/sansation.ttf").unwrap();
     /// let underline_position = font.underline_position(32);
     /// assert_eq!(underline_position, 3.734375);
@@ -307,7 +307,7 @@ impl Font {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Font;
+    /// # use sf2g::graphics::Font;
     /// # let font = Font::from_file("examples/resources/sansation.ttf").unwrap();
     /// let underline_thickness = font.underline_thickness(32);
     /// assert_eq!(underline_thickness, 2.34375);

@@ -32,7 +32,7 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
+    /// # use sf2g::graphics::Rect;
     /// let rect = Rect::new(10, 10, 10, 10);
     /// ```
     pub const fn new(left: T, top: T, width: T, height: T) -> Self {
@@ -49,8 +49,8 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
-    /// # use sfml::system::Vector2;
+    /// # use sf2g::graphics::Rect;
+    /// # use sf2g::system::Vector2;
     /// let a = Vector2::new(10, 20);
     /// let b = Vector2::new(30, 40);
     /// let rect = Rect::from_vecs(a, b);
@@ -70,7 +70,7 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
+    /// # use sf2g::graphics::Rect;
     /// let a = Rect::new(1u8, 2u8, 3u8, 4u8);
     /// let b: Rect<u32> = a.into_other();
     /// assert_eq!(u8::try_from(b.top).unwrap(), a.top);
@@ -94,7 +94,7 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
+    /// # use sf2g::graphics::Rect;
     /// let a = Rect::new(1i16, 2i16, 3i16, 4i16);
     /// let b: Rect<u8> = a.try_into_other().unwrap();
     /// assert_eq!(i16::from(b.top), a.top);
@@ -122,7 +122,7 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
+    /// # use sf2g::graphics::Rect;
     /// let a = Rect::new(2., 32.32, 3.34, 1.443);
     /// let b: Rect<u8> = a.as_other();
     /// assert_eq!(b.top, 32);
@@ -147,8 +147,8 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
-    /// # use sfml::system::Vector2;
+    /// # use sf2g::graphics::Rect;
+    /// # use sf2g::system::Vector2;
     /// let a = Rect::new(1, 2, 3, 4);
     /// assert_eq!(a.position(), Vector2::new(1, 2));
     /// ```
@@ -161,8 +161,8 @@ impl<T> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
-    /// # use sfml::system::Vector2;
+    /// # use sf2g::graphics::Rect;
+    /// # use sf2g::system::Vector2;
     /// let a = Rect::new(1, 2, 3, 4);
     /// assert_eq!(a.size(), Vector2::new(3, 4));
     /// ```
@@ -177,8 +177,8 @@ impl<T: PartialOrd + Add<Output = T> + Sub<Output = T> + Copy> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
-    /// # use sfml::system::Vector2;
+    /// # use sf2g::graphics::Rect;
+    /// # use sf2g::system::Vector2;
     /// // Passing case
     /// let a = Rect::new(0, 0, 4, 4);
     /// let b = Vector2::new(2, 2);
@@ -199,7 +199,7 @@ impl<T: PartialOrd + Add<Output = T> + Sub<Output = T> + Copy> Rect<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::graphics::Rect;
+    /// # use sf2g::graphics::Rect;
     /// // Passing case
     /// let a = Rect::new(0, 0, 4, 4);
     /// assert!(a.contains2(2, 2));
@@ -223,7 +223,7 @@ impl<T: PartialOrd + Add<Output = T> + Sub<Output = T> + Copy> Rect<T> {
     ///
     /// # Usage Example
     /// ```
-    /// # use sfml::graphics::Rect;
+    /// # use sf2g::graphics::Rect;
     /// // Passing case
     /// let a = Rect::new(0, 0, 2, 2);
     /// let b = Rect::new(1, 1, 2, 2);

@@ -1,4 +1,4 @@
-use sfml::{
+use sf2g::{
     SfResult,
     graphics::{
         CircleShape, Color, ConvexShape, Font, RenderStates, RenderTarget, RenderWindow, Shape,

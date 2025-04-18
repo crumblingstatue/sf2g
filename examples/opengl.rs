@@ -1,6 +1,6 @@
 use {
     glu_sys as gl,
-    sfml::{
+    sf2g::{
         SfResult,
         graphics::{
             Color, Font, IntRect, RenderStates, RenderTarget, RenderWindow, Sprite, Text, Texture,

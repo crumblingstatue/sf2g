@@ -23,7 +23,7 @@ use {
 ///
 /// # Usage example
 /// ```
-/// # use sfml::system::Time;
+/// # use sf2g::system::Time;
 /// let t1 = Time::seconds(0.1);
 /// assert_eq!(t1.as_milliseconds(), 100);
 ///

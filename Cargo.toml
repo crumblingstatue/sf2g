@@ -73,9 +73,6 @@ rand.default-features = false
 rand.features = ["small_rng"]
 glu-sys = "0.1.4"
 
-[lib]
-name = "sfml"
-
 [[example]]
 name = "borrowed-resources"
 required-features = ["graphics"]

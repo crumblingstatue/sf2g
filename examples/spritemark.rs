@@ -4,7 +4,7 @@
 
 use {
     rand::{Rng as _, SeedableRng, rngs::SmallRng},
-    sfml::{
+    sf2g::{
         SfResult,
         graphics::{
             Color, Font, PrimitiveType, Rect, RenderStates, RenderTarget, RenderWindow, Text,

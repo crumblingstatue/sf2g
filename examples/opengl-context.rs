@@ -1,4 +1,4 @@
-use sfml::{SfResult, window::Context};
+use sf2g::{SfResult, window::Context};
 
 fn main() -> SfResult<()> {
     // We have no active context, so this should be null

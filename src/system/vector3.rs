@@ -27,7 +27,7 @@ use {
 ///
 /// # Usage example
 /// ```
-/// # use sfml::system::Vector3f;
+/// # use sf2g::system::Vector3f;
 /// let mut v1 = Vector3f::new(16.5, 24.0, -8.2);
 /// v1.x = 18.2;
 /// let y = v1.y;
@@ -60,7 +60,7 @@ impl<T> Vector3<T> {
     /// # Usage example
     ///
     /// ```
-    /// # use sfml::system::Vector3;
+    /// # use sf2g::system::Vector3;
     /// let v: Vector3<isize> = Vector3::new(1, 2, 3);
     /// ```
     pub const fn new(x: T, y: T, z: T) -> Self {
@@ -71,7 +71,7 @@ impl<T> Vector3<T> {
     /// # Usage example
     ///
     /// ```
-    /// # use sfml::system::Vector3;
+    /// # use sf2g::system::Vector3;
     /// let vu: Vector3<u16> = Vector3::new(1, 2, 3);
     /// let vi: Vector3<i32> = vu.into_other();
     /// assert_eq!(i32::from(vu.x), vi.x);
@@ -93,7 +93,7 @@ impl<T> Vector3<T> {
     /// # Usage example
     ///
     /// ```
-    /// # use sfml::system::Vector3;
+    /// # use sf2g::system::Vector3;
     /// let vi: Vector3<i32> = Vector3::new(1, 2, 3);
     /// let vu: Vector3<u32> = vi.try_into_other().unwrap(); // or any other Result resolution
     /// assert_eq!(u32::try_from(vi.x).unwrap(), vu.x);
@@ -119,7 +119,7 @@ impl<T> Vector3<T> {
     /// # Usage example
     ///
     /// ```
-    /// # use sfml::system::Vector3;
+    /// # use sf2g::system::Vector3;
     /// let vf: Vector3<f32> = Vector3::new(1., 2.5, 3.3);
     /// let vi: Vector3<i32> = vf.as_other();
     /// assert_eq!(vi, Vector3::new(1, 2, 3));
@@ -147,7 +147,7 @@ impl<T: Mul<Output = T> + Add<Output = T> + Copy> Vector3<T> {
     /// # Usage example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(9, 10, 21);
     /// let b = Vector3i::new(69, 420, 101);
     ///
@@ -161,7 +161,7 @@ impl<T: Mul<Output = T> + Add<Output = T> + Copy> Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(9, 10, 21);
     /// assert_eq!(a.length_sq(), 622);
     /// ```
@@ -176,7 +176,7 @@ impl<T: Mul<Output = T> + Sub<Output = T> + Copy> Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(9, 10, 21);
     /// let b = Vector3i::new(69, 420, 101);
     /// assert_eq!(a.cross(b), Vector3i::new(-7810, 540, 3090));
@@ -196,7 +196,7 @@ impl<T: Mul<Output = T>> Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(1, 1, 1);
     /// let b = Vector3i::new(2, 2, 2);
     /// assert_eq!(a.cwise_mul(b), Vector3i::new(2, 2, 2));
@@ -216,7 +216,7 @@ impl<T: Div<Output = T>> Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(10, 10, 10);
     /// let b = Vector3i::new(3, 3, 3);
     /// assert_eq!(a.cwise_div(b), Vector3i::new(3, 3, 3));
@@ -236,7 +236,7 @@ impl<T: Div<Output = T> + CheckedDiv> Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(10, 10, 10);
     /// let b = Vector3i::new(3, 3, 3);
     /// assert_eq!(a.cwise_checked_div(b), Some(Vector3i::new(3, 3, 3)));
@@ -261,7 +261,7 @@ impl<T: Add> Add for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(10, 10, 10);
     /// let b = Vector3i::new(10, 10, 10);
     /// assert_eq!(a + b, Vector3i::new(20, 20, 20));
@@ -281,7 +281,7 @@ impl<T: AddAssign> AddAssign for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let mut a = Vector3i::new(10, 10, 10);
     /// a += Vector3i::new(10, 10, 10);
     /// assert_eq!(a, Vector3i::new(20, 20, 20));
@@ -301,7 +301,7 @@ impl<T: Sub> Sub for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(10, 10, 10);
     /// let b = Vector3i::new(10, 10, 10);
     /// assert_eq!(a - b, Vector3i::new(0, 0, 0));
@@ -321,7 +321,7 @@ impl<T: SubAssign> SubAssign for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let mut a = Vector3i::new(10, 10, 10);
     /// a -= Vector3i::new(10, 10, 10);
     /// assert_eq!(a, Vector3i::new(0, 0, 0));
@@ -341,7 +341,7 @@ impl<T: Mul + Copy> Mul<T> for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(69, 21, 19);
     /// assert_eq!(a * 10, Vector3i::new(690, 210, 190));
     /// ```
@@ -360,7 +360,7 @@ impl<T: MulAssign + Copy> MulAssign<T> for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let mut a = Vector3i::new(69, 21, 19);
     /// a *= 10;
     /// assert_eq!(a, Vector3i::new(690, 210, 190));
@@ -380,7 +380,7 @@ impl<T: Div + Copy> Div<T> for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::new(10, 10, 10);
     /// assert_eq!(a / 3, Vector3i::new(3, 3, 3));
     /// ```
@@ -399,7 +399,7 @@ impl<T: DivAssign + Copy> DivAssign<T> for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let mut a = Vector3i::new(10, 10, 10);
     /// a /= 3;
     /// assert_eq!(a, Vector3i::new(3, 3, 3));
@@ -417,7 +417,7 @@ impl<T: CheckedDiv> Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// // Passing case
     /// let a = Vector3i::new(10, 10, 10);
     /// assert_eq!(a.checked_div(3), Some(Vector3i::new(3, 3, 3)));
@@ -441,7 +441,7 @@ impl<T: Neg<Output = T>> Neg for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// use std::ops::Neg;
     /// let a = Vector3i::new(-69, 21, -10);
     /// assert_eq!(a.neg(), Vector3i::new(69, -21, 10));
@@ -461,7 +461,7 @@ impl<T> From<(T, T, T)> for Vector3<T> {
     /// # Usage Example
     ///
     /// ```
-    /// # use sfml::system::Vector3i;
+    /// # use sf2g::system::Vector3i;
     /// let a = Vector3i::from((1, 2, 3));
     /// assert_eq!(a, Vector3i::new(1, 2, 3));
     /// ```

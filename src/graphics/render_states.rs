@@ -22,16 +22,16 @@ use crate::graphics::{BlendMode, Shader, Texture, Transform};
 /// render states explicitly – the default set of states is ok in most cases.
 ///
 /// ```no_run
-/// # use sfml::graphics::{RenderTarget, RenderStates};
-/// # let window: sfml::graphics::RenderWindow = unimplemented!();
-/// # let sprite: sfml::graphics::Sprite = unimplemented!();
+/// # use sf2g::graphics::{RenderTarget, RenderStates};
+/// # let window: sf2g::graphics::RenderWindow = unimplemented!();
+/// # let sprite: sf2g::graphics::Sprite = unimplemented!();
 /// window.draw_sprite(&sprite, &RenderStates::DEFAULT);
 /// ```
 ///
 /// To draw with a specific render state, use [`RenderTarget::draw_with_renderstates`].
 ///
 /// ```no_run
-/// # use sfml::graphics::*;
+/// # use sf2g::graphics::*;
 /// # let mut window: RenderWindow = unimplemented!();
 /// # let shader: &Shader = unimplemented!();
 /// # let sprite: Sprite = unimplemented!();

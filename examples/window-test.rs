@@ -1,4 +1,4 @@
-use sfml::{
+use sf2g::{
     SfResult,
     graphics::{Color, Font, RenderStates, RenderTarget, RenderWindow, Text, Transformable},
     window::{ContextSettings, Event, Key, Style, VideoMode},

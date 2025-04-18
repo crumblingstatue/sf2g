@@ -1,6 +1,6 @@
 use {
     rand::{Rng as _, SeedableRng, rngs::SmallRng},
-    sfml::{
+    sf2g::{
         SfError, SfResult,
         cpp::FBox,
         graphics::{

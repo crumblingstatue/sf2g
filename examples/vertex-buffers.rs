@@ -1,4 +1,4 @@
-use sfml::{
+use sf2g::{
     SfResult,
     graphics::{
         Color, PrimitiveType, RenderStates, RenderTarget, RenderWindow, Vertex, VertexBuffer,
