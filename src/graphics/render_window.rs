@@ -3,9 +3,8 @@ use crate::{
     cpp::FBox,
     ffi::graphics as ffi,
     graphics::{
-        CircleShape, Color, ConvexShape, CustomShape,  IntRect, PrimitiveType,
-         RectangleShape, RenderStates, RenderTarget, Sprite, Text, Vertex, VertexBuffer,
-        View,
+        CircleShape, Color, ConvexShape, CustomShape, IntRect, PrimitiveType, RectangleShape,
+        RenderStates, RenderTarget, Sprite, Text, Vertex, VertexBuffer, View,
     },
     system::{SfStrConv, Vector2f, Vector2i, Vector2u},
     window::{ContextSettings, Cursor, Event, Handle, Style, VideoMode, thread_safety},

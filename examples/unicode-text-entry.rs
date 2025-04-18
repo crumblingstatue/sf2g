@@ -1,7 +1,10 @@
 use sfml::{
+    SfResult,
     graphics::{
-        Color, Font, RectangleShape, RenderStates, RenderTarget, RenderWindow, Shape, Text, TextStyle, Transformable
-    }, window::{Event, Key, Style}, SfResult
+        Color, Font, RectangleShape, RenderStates, RenderTarget, RenderWindow, Shape, Text,
+        TextStyle, Transformable,
+    },
+    window::{Event, Key, Style},
 };
 
 include!("../example_common.rs");

@@ -1,5 +1,5 @@
 use crate::{
-    graphics::{Color,  FloatRect, IntRect, Texture, Transformable},
+    graphics::{Color, FloatRect, IntRect, Texture, Transformable},
     system::Vector2f,
 };
 

@@ -3,12 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-fn static_link_windows(
-    feat_window: bool,
-    feat_graphics: bool,
-    env: WinEnv,
-    build_lib_path: &Path,
-) {
+fn static_link_windows(feat_window: bool, feat_graphics: bool, env: WinEnv, build_lib_path: &Path) {
     let arch = match env::var("CARGO_CFG_TARGET_ARCH").as_deref() {
         Ok("x86") => "x86",
         Ok("x86_64") => "x64",

@@ -1,10 +1,7 @@
 use {
     crate::{
         ffi::graphics as ffi,
-        graphics::{
-            Color,  FloatRect, IntRect, Texture, Transform,
-            Transformable,
-        },
+        graphics::{Color, FloatRect, IntRect, Texture, Transform, Transformable},
         system::Vector2f,
     },
     std::{marker::PhantomData, ptr::NonNull},

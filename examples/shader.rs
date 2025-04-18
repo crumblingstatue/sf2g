@@ -39,7 +39,6 @@ impl<'t> Pixelate<'t> {
             shader: Shader::from_file("pixelate.frag", ShaderType::Fragment)?,
         })
     }
-    
 }
 
 impl Effect for Pixelate<'_> {
@@ -142,7 +141,6 @@ impl StormBlink {
         let shader = Shader::from_file_vert_frag("storm.vert", "blink.frag")?;
         Ok(Self { points, shader })
     }
-    
 }
 
 impl Effect for StormBlink {
@@ -203,7 +201,6 @@ impl<'t> Edge<'t> {
             shader,
         })
     }
-    
 }
 
 impl Effect for Edge<'_> {
@@ -280,7 +277,6 @@ impl<'tex> Geometry<'tex> {
             transform: Transform::IDENTITY,
         })
     }
-    
 }
 
 impl Effect for Geometry<'_> {

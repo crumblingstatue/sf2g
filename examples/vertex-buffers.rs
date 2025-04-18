@@ -1,7 +1,10 @@
 use sfml::{
+    SfResult,
     graphics::{
-        Color, PrimitiveType, RenderStates, RenderTarget, RenderWindow, Vertex, VertexBuffer, VertexBufferUsage
-    }, window::{mouse::Button, Event, Style}, SfResult
+        Color, PrimitiveType, RenderStates, RenderTarget, RenderWindow, Vertex, VertexBuffer,
+        VertexBufferUsage,
+    },
+    window::{Event, Style, mouse::Button},
 };
 
 fn main() -> SfResult<()> {
