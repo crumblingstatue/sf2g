@@ -47,7 +47,6 @@ serde = ["dep:serde"]
 ci-headless = []
 
 [dependencies]
-image = "0.25.6"
 link-cplusplus = "1.0.9"
 num-traits = "0.2.15"
 
@@ -62,6 +61,10 @@ version = "1.0"
 [dependencies.bitflags]
 version = "2.3.3"
 optional = true
+
+[dependencies.image]
+version = "0.25.6"
+default-features = false
 
 [build-dependencies]
 cc = "1.0.79"
@@ -93,7 +96,7 @@ required-features = ["graphics"]
 
 [[example]]
 name = "shader"
-required-features = ["graphics"]
+required-features = ["graphics", "image/png", "image/jpeg"]
 
 [[example]]
 name = "cursor"
@@ -105,11 +108,11 @@ required-features = ["graphics"]
 
 [[example]]
 name = "spritemark"
-required-features = ["graphics"]
+required-features = ["graphics", "image/png"]
 
 [[example]]
 name = "opengl"
-required-features = ["graphics"]
+required-features = ["graphics", "image/png", "image/jpeg"]
 
 [[example]]
 name = "joystick"
