@@ -76,9 +76,8 @@ impl Texture {
     /// * area - Area of the image to load
     pub fn load_from_memory(&mut self, mem: &[u8]) -> SfResult<()> {
         let img = image::load_from_memory(mem).map_err(|_| SfError::CallFailed)?;
-        let rgba8 = img.as_rgba8().ok_or(SfError::CallFailed)?;
         self.create(img.width(), img.height())?;
-        self.update_from_pixels(rgba8, img.width(), img.height(), 0, 0);
+        self.update_from_pixels(&img.to_rgba8(), img.width(), img.height(), 0, 0);
         Ok(())
     }
 
@@ -88,9 +87,8 @@ impl Texture {
     /// * filename - Path of the image file to load
     pub fn load_from_file(&mut self, filename: &str) -> SfResult<()> {
         let img = image::open(filename).map_err(|_| SfError::CallFailed)?;
-        let rgba8 = img.as_rgba8().ok_or(SfError::CallFailed)?;
         self.create(img.width(), img.height())?;
-        self.update_from_pixels(rgba8, img.width(), img.height(), 0, 0);
+        self.update_from_pixels(&img.to_rgba8(), img.width(), img.height(), 0, 0);
         Ok(())
     }
 
