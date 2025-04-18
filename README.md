@@ -2,7 +2,7 @@ sf2g
 =========
 
 Minimal Rust bindings for the Graphics module of [SFML 2](http://www.sfml-dev.org), the Simple and Fast Multimedia Library.
-Fork of [rust-sfml]<https://github.com/jeremyletang/rust-sfml.git>.
+Fork of [rust-sfml](<https://github.com/jeremyletang/rust-sfml.git>).
 
 Platform support
 ================
