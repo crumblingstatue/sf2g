@@ -47,6 +47,7 @@ serde = ["dep:serde"]
 ci-headless = []
 
 [dependencies]
+image = "0.25.6"
 link-cplusplus = "1.0.9"
 num-traits = "0.2.15"
 

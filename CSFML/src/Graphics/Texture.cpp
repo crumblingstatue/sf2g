@@ -20,14 +20,6 @@ extern "C" bool sfTexture_create(sf::Texture *tex, unsigned int width, unsigned 
     return tex->create(width, height);
 }
 
-extern "C" bool sfTexture_loadFromFile(sf::Texture *tex, const char *filename, const sfIntRect area) {
-    return tex->loadFromFile(filename, sf::IntRect(area.left, area.top, area.width, area.height));
-}
-
-extern "C" bool sfTexture_loadFromMemory(sf::Texture *tex, const void *data, size_t sizeInBytes, const sfIntRect area) {
-    return tex->loadFromMemory(data, sizeInBytes, sf::IntRect(area.left, area.top, area.width, area.height));
-}
-
 extern "C" bool sfTexture_loadFromImage(sf::Texture *tex, const sf::Image *image, const sfIntRect area) {
     return tex->loadFromImage(*image, sf::IntRect(area.left, area.top, area.width, area.height));
 }

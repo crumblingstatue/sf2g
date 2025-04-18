@@ -21,8 +21,6 @@ set(SRC
     ${SRCROOT}/GLExtensions.cpp
     ${SRCROOT}/Image.cpp
     ${INCROOT}/Image.hpp
-    ${SRCROOT}/ImageLoader.cpp
-    ${SRCROOT}/ImageLoader.hpp
     ${INCROOT}/PrimitiveType.hpp
     ${INCROOT}/Rect.hpp
     ${INCROOT}/Rect.inl
@@ -92,9 +90,6 @@ sfml_add_library(sfml-graphics
 # setup dependencies
 target_link_libraries(sfml-graphics PUBLIC sfml-window)
 
-# stb_image sources
-target_include_directories(sfml-graphics SYSTEM PRIVATE "${PROJECT_SOURCE_DIR}/extlibs/headers/stb_image")
-
 # glad sources
 target_include_directories(sfml-graphics SYSTEM PRIVATE "${PROJECT_SOURCE_DIR}/extlibs/headers/glad/include")
 
@@ -128,9 +123,3 @@ target_link_libraries(sfml-graphics PRIVATE Freetype)
 
 # add preprocessor symbols
 target_compile_definitions(sfml-graphics PRIVATE "STBI_FAILURE_USERMSG")
-
-# ImageLoader.cpp must be compiled with the -fno-strict-aliasing
-# when gcc is used; otherwise saving PNGs may crash in stb_image_write
-if(SFML_COMPILER_GCC)
-    set_source_files_properties(${SRCROOT}/ImageLoader.cpp PROPERTIES COMPILE_FLAGS -fno-strict-aliasing)
-endif()

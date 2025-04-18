@@ -26,7 +26,6 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <SFML/Graphics/Image.hpp>
-#include <SFML/Graphics/ImageLoader.hpp>
 #include <SFML/System/Err.hpp>
 #ifdef SFML_SYSTEM_ANDROID
     #include <SFML/System/Android/ResourceStream.hpp>
@@ -115,50 +114,6 @@ void Image::create(unsigned int width, unsigned int height, const Uint8* pixels)
         m_size.y = 0;
     }
 }
-
-
-////////////////////////////////////////////////////////////
-bool Image::loadFromFile(const std::string& filename)
-{
-    #ifndef SFML_SYSTEM_ANDROID
-
-        return priv::ImageLoader::getInstance().loadImageFromFile(filename, m_pixels, m_size);
-
-    #else
-
-        priv::ResourceStream stream(filename);
-        return loadFromStream(stream);
-
-    #endif
-}
-
-
-////////////////////////////////////////////////////////////
-bool Image::loadFromMemory(const void* data, std::size_t size)
-{
-    return priv::ImageLoader::getInstance().loadImageFromMemory(data, size, m_pixels, m_size);
-}
-
-
-////////////////////////////////////////////////////////////
-bool Image::loadFromStream(InputStream& stream)
-{
-    return priv::ImageLoader::getInstance().loadImageFromStream(stream, m_pixels, m_size);
-}
-
-
-////////////////////////////////////////////////////////////
-bool Image::saveToFile(const std::string& filename) const
-{
-    return priv::ImageLoader::getInstance().saveImageToFile(filename, m_pixels, m_size);
-}
-
-////////////////////////////////////////////////////////////
-bool Image::saveToMemory(std::vector<sf::Uint8>& output, const std::string& format) const
-{
-    return priv::ImageLoader::getInstance().saveImageToMemory(format, output, m_pixels, m_size);
-}
-
 
 ////////////////////////////////////////////////////////////
 Vector2u Image::getSize() const

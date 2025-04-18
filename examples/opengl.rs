@@ -3,7 +3,7 @@ use {
     sf2g::{
         SfResult,
         graphics::{
-            Color, Font, IntRect, RenderStates, RenderTarget, RenderWindow, Sprite, Text, Texture,
+            Color, Font, RenderStates, RenderTarget, RenderWindow, Sprite, Text, Texture,
             Transformable,
         },
         system::Clock,
@@ -37,7 +37,7 @@ fn main() -> SfResult<()> {
 
         let mut bg_tex = Texture::new()?;
         bg_tex.set_srgb(srgb);
-        bg_tex.load_from_file("opengl-background.jpg", IntRect::default())?;
+        bg_tex.load_from_file("opengl-background.jpg")?;
         let bg_sprite = Sprite::with_texture(&bg_tex);
 
         let font = Font::from_file("sansation.ttf")?;

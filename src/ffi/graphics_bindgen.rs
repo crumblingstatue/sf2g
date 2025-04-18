@@ -308,8 +308,6 @@ pub fn sfTexture_new() -> *mut sfTexture;
 pub fn sfTexture_cpy(texture: *const sfTexture) -> *mut sfTexture;
 pub fn sfTexture_del(texture: *mut sfTexture);
 pub fn sfTexture_create(tex: *mut sfTexture, width: c_uint, height: c_uint) -> bool;
-pub fn sfTexture_loadFromFile(tex: *mut sfTexture, filename: *const c_char, area: sfIntRect) -> bool;
-pub fn sfTexture_loadFromMemory(tex: *mut sfTexture, data: *const c_void, sizeInBytes: usize, area: sfIntRect) -> bool;
 pub fn sfTexture_getSize(texture: *const sfTexture) -> sfVector2u;
 pub fn sfTexture_updateFromPixels(texture: *mut sfTexture, pixels: *const u8, width: c_uint, height: c_uint, x: c_uint, y: c_uint);
 pub fn sfTexture_updateFromTexture(destination: *mut sfTexture, texture: *const sfTexture, x: c_uint, y: c_uint);

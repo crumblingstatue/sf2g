@@ -1,13 +1,10 @@
-use {
-    crate::{
-        IntoSfResult, SfResult,
-        cpp::FBox,
-        ffi::graphics::{self as ffi, sfTexture_create},
-        graphics::{IntRect, RenderWindow},
-        system::Vector2u,
-        window::Window,
-    },
-    std::ffi::CString,
+use crate::{
+    IntoSfResult, SfError, SfResult,
+    cpp::FBox,
+    ffi::graphics::{self as ffi, sfTexture_create},
+    graphics::RenderWindow,
+    system::Vector2u,
+    window::Window,
 };
 
 decl_opaque! {
@@ -77,26 +74,30 @@ impl Texture {
     /// # Arguments
     /// * mem - Pointer to the file data in memory
     /// * area - Area of the image to load
-    pub fn load_from_memory(&mut self, mem: &[u8], area: IntRect) -> SfResult<()> {
-        unsafe {
-            ffi::sfTexture_loadFromMemory(self, mem.as_ptr().cast(), mem.len(), area)
-                .into_sf_result()
-        }
+    pub fn load_from_memory(&mut self, mem: &[u8]) -> SfResult<()> {
+        let img = image::load_from_memory(mem).map_err(|_| SfError::CallFailed)?;
+        let rgba8 = img.as_rgba8().ok_or(SfError::CallFailed)?;
+        self.create(img.width(), img.height())?;
+        self.update_from_pixels(rgba8, img.width(), img.height(), 0, 0);
+        Ok(())
     }
 
     /// Load texture from a file
     ///
     /// # Arguments
     /// * filename - Path of the image file to load
-    pub fn load_from_file(&mut self, filename: &str, area: IntRect) -> SfResult<()> {
-        let c_str = CString::new(filename)?;
-        unsafe { ffi::sfTexture_loadFromFile(self, c_str.as_ptr(), area).into_sf_result() }
+    pub fn load_from_file(&mut self, filename: &str) -> SfResult<()> {
+        let img = image::open(filename).map_err(|_| SfError::CallFailed)?;
+        let rgba8 = img.as_rgba8().ok_or(SfError::CallFailed)?;
+        self.create(img.width(), img.height())?;
+        self.update_from_pixels(rgba8, img.width(), img.height(), 0, 0);
+        Ok(())
     }
 
     /// Convenience method to easily create and load a `Texture` from a file.
     pub fn from_file(filename: &str) -> SfResult<FBox<Self>> {
         let mut new = Self::new()?;
-        new.load_from_file(filename, IntRect::default())?;
+        new.load_from_file(filename)?;
         Ok(new)
     }
 }
