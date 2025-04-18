@@ -1,5 +1,4 @@
 #include "Graphics/Rect.hpp"
-#include "System/InputStreamHelper.hpp"
 #include "System/Vector2.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -27,10 +26,6 @@ extern "C" bool sfTexture_loadFromFile(sf::Texture *tex, const char *filename, c
 
 extern "C" bool sfTexture_loadFromMemory(sf::Texture *tex, const void *data, size_t sizeInBytes, const sfIntRect area) {
     return tex->loadFromMemory(data, sizeInBytes, sf::IntRect(area.left, area.top, area.width, area.height));
-}
-
-extern "C" bool sfTexture_loadFromStream(sf::Texture *tex, sfInputStreamHelper *stream, const sfIntRect area) {
-    return tex->loadFromStream(*stream, sf::IntRect(area.left, area.top, area.width, area.height));
 }
 
 extern "C" bool sfTexture_loadFromImage(sf::Texture *tex, const sf::Image *image, const sfIntRect area) {

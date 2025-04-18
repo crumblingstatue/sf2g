@@ -1,7 +1,7 @@
 #include "Graphics/Rect.hpp"
-#include "System/InputStreamHelper.hpp"
 #include <SFML/Graphics/Font.hpp>
 #include <cstddef>
+#include <cstdint>
 
 struct sfGlyph {
     float advance;         ///< Offset to move horizontically to the next character
@@ -27,10 +27,6 @@ extern "C" bool sfFont_loadFromFile(sf::Font *font, const char *filename) {
 
 extern "C" bool sfFont_loadFromMemory(sf::Font *font, const uint8_t *data, size_t sizeInBytes) {
     return font->loadFromMemory(data, sizeInBytes);
-}
-
-extern "C" bool sfFont_loadFromStream(sf::Font *font, sfInputStreamHelper *stream) {
-    return font->loadFromStream(*stream);
 }
 
 extern "C" sfGlyph sfFont_getGlyph(const sf::Font *font, uint32_t codePoint, unsigned int characterSize, bool bold, float outlineThickness) {

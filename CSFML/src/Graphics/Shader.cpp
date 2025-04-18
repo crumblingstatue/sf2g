@@ -1,4 +1,3 @@
-#include "System/InputStreamHelper.hpp"
 #include "System/Vector2.hpp"
 #include "System/Vector3.hpp"
 #include <SFML/Graphics/Shader.hpp>
@@ -75,10 +74,6 @@ extern "C" bool sfShader_loadFromFile_1(sf::Shader *shader, const char *filename
     return shader->loadFromFile(filename, type);
 }
 
-extern "C" bool sfShader_loadFromStream_1(sf::Shader *shader, sfInputStreamHelper *stream, sf::Shader::Type type) {
-    return shader->loadFromStream(*stream, type);
-}
-
 extern "C" bool sfShader_loadFromMemory_vert_frag(sf::Shader *shader, const char *vert, const char *frag) {
     return shader->loadFromMemory(vert, frag);
 }
@@ -87,20 +82,12 @@ extern "C" bool sfShader_loadFromFile_vert_frag(sf::Shader *shader, const char *
     return shader->loadFromFile(vert, frag);
 }
 
-extern "C" bool sfShader_loadFromStream_vert_frag(sf::Shader *shader, sfInputStreamHelper *vert, sfInputStreamHelper *frag) {
-    return shader->loadFromStream(*vert, *frag);
-}
-
 extern "C" bool sfShader_loadFromMemory_all(sf::Shader *shader, const char *vert, const char *geom, const char *frag) {
     return shader->loadFromMemory(vert, geom, frag);
 }
 
 extern "C" bool sfShader_loadFromFile_all(sf::Shader *shader, const char *vert, const char *geom, const char *frag) {
     return shader->loadFromFile(vert, geom, frag);
-}
-
-extern "C" bool sfShader_loadFromStream_all(sf::Shader *shader, sfInputStreamHelper *vert, sfInputStreamHelper *geom, sfInputStreamHelper *frag) {
-    return shader->loadFromStream(*vert, *geom, *frag);
 }
 
 extern "C" void sfShader_setFloatUniform(sf::Shader *shader, const char *name, float x) {

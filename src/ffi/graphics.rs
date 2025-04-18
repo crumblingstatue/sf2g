@@ -1,11 +1,8 @@
 pub use crate::ffi::*;
-use {
-    super::system::sfInputStreamHelper,
-    crate::{
-        ffi::window::{Event as sfEvent, sfContextSettings, sfCursor, sfWindow, sfWindowHandle},
-        graphics::{Color, Rect, RenderStates as sfRenderStates, Transform as sfTransform},
-        window::VideoMode as sfVideoMode,
-    },
+use crate::{
+    ffi::window::{Event as sfEvent, sfContextSettings, sfCursor, sfWindow, sfWindowHandle},
+    graphics::{Color, Rect, RenderStates as sfRenderStates, Transform as sfTransform},
+    window::VideoMode as sfVideoMode,
 };
 
 decl_opaque! {

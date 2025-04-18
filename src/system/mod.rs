@@ -5,7 +5,6 @@
 
 pub use self::{
     clock::Clock,
-    input_stream::InputStream,
     sleep::sleep,
     string::{SfStr, SfStrConv, SfString},
     time::Time,
@@ -14,7 +13,6 @@ pub use self::{
 };
 
 mod clock;
-mod input_stream;
 mod sleep;
 mod string;
 mod time;

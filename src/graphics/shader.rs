@@ -5,11 +5,9 @@ use {
         cpp::FBox,
         ffi::graphics as ffi,
         graphics::{Texture, glsl},
-        system::InputStream,
     },
     std::{
         ffi::CString,
-        io::{Read, Seek},
         marker::PhantomData,
         ptr::{self},
     },
@@ -253,74 +251,6 @@ impl<'texture> Shader<'texture> {
                 vert.as_ptr(),
                 geom.as_ptr(),
                 frag.as_ptr(),
-            )
-        }
-        .into_sf_result()?;
-        Ok(new)
-    }
-
-    /// Load the vertex, geometry or fragment shader from a custom stream.
-    ///
-    /// This function loads a single shader, vertex, geometry or fragment, identified by the second
-    /// argument. The source code must be a valid shader in GLSL language.
-    /// GLSL is a C-like language dedicated to OpenGL shaders; you'll probably need to read a good
-    /// documentation for it before writing your own shaders.
-    pub fn from_stream<T: Read + Seek>(mut source: T, type_: ShaderType) -> SfResult<FBox<Self>> {
-        let source = InputStream::new(&mut source);
-        let mut new = Self::new()?;
-        unsafe { ffi::sfShader_loadFromStream_1(new.raw_mut(), source.stream.0.as_ptr(), type_) }
-            .into_sf_result()?;
-        Ok(new)
-    }
-
-    /// Load both the vertex and fragment shaders from custom streams.
-    ///
-    /// This function loads both the vertex and the fragment shaders.
-    /// The source codes must be valid shaders in GLSL language. GLSL is a C-like
-    /// language dedicated to OpenGL shaders; you'll probably need to read a good documentation
-    /// for it before writing your own shaders.
-    pub fn from_stream_vert_frag<T, U>(mut vert: T, mut frag: U) -> SfResult<FBox<Self>>
-    where
-        T: Read + Seek,
-        U: Read + Seek,
-    {
-        let vert = InputStream::new(&mut vert);
-        let frag = InputStream::new(&mut frag);
-        let mut new = Self::new()?;
-
-        unsafe {
-            ffi::sfShader_loadFromStream_vert_frag(
-                new.raw_mut(),
-                vert.stream.0.as_ptr(),
-                frag.stream.0.as_ptr(),
-            )
-        }
-        .into_sf_result()?;
-        Ok(new)
-    }
-
-    /// Load the vertex, geometry and fragment shaders from custom streams.
-    ///
-    /// This function loads the vertex, geometry and fragment shaders.
-    /// The source codes must be valid shaders in GLSL language. GLSL is a C-like language
-    /// dedicated to OpenGL shaders; you'll probably need to read a good documentation for it
-    /// before writing your own shaders.
-    pub fn from_stream_all<T, U, V>(mut vert: T, mut geom: U, mut frag: V) -> SfResult<FBox<Self>>
-    where
-        T: Read + Seek,
-        U: Read + Seek,
-        V: Read + Seek,
-    {
-        let vert = InputStream::new(&mut vert);
-        let geom = InputStream::new(&mut geom);
-        let frag = InputStream::new(&mut frag);
-        let mut new = Self::new()?;
-        unsafe {
-            ffi::sfShader_loadFromStream_all(
-                new.raw_mut(),
-                vert.stream.0.as_ptr(),
-                geom.stream.0.as_ptr(),
-                frag.stream.0.as_ptr(),
             )
         }
         .into_sf_result()?;

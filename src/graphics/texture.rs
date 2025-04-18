@@ -4,13 +4,10 @@ use {
         cpp::FBox,
         ffi::graphics::{self as ffi, sfTexture_create},
         graphics::{IntRect, RenderWindow},
-        system::{InputStream, Vector2u},
+        system::Vector2u,
         window::Window,
     },
-    std::{
-        ffi::CString,
-        io::{Read, Seek},
-    },
+    std::ffi::CString,
 };
 
 decl_opaque! {
@@ -84,27 +81,6 @@ impl Texture {
         unsafe {
             ffi::sfTexture_loadFromMemory(self, mem.as_ptr().cast(), mem.len(), area)
                 .into_sf_result()
-        }
-    }
-
-    /// Load texture from a stream (a struct implementing Read + Seek)
-    ///
-    /// The `area` argument can be used to load only a sub-rectangle of the whole image.
-    /// If you want the entire image then use a default [`IntRect`].
-    /// If the area rectangle crosses the bounds of the image,
-    /// it is adjusted to fit the image size.
-    ///
-    /// # Arguments
-    /// * stream - Your struct, implementing Read and Seek
-    /// * area - Area of the image to load
-    pub fn load_from_stream<T: Read + Seek>(
-        &mut self,
-        stream: &mut T,
-        area: IntRect,
-    ) -> SfResult<()> {
-        let mut input_stream = InputStream::new(stream);
-        unsafe {
-            ffi::sfTexture_loadFromStream(self, &mut *input_stream.stream, area).into_sf_result()
         }
     }
 

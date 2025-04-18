@@ -134,7 +134,6 @@ fn main() {
         [
             "CSFML/src/System/Clock.cpp",
             "CSFML/src/System/Sleep.cpp",
-            "CSFML/src/System/InputStreamHelper.cpp",
             "CSFML/src/System/SfString.cpp",
             "CSFML/src/System/SfStdString.cpp",
             "CSFML/src/System/SfStdVector.cpp",

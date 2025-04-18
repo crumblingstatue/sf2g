@@ -4,12 +4,8 @@ use {
         cpp::FBox,
         ffi::graphics as ffi,
         graphics::{Glyph, Texture},
-        system::InputStream,
     },
-    std::{
-        ffi::{CStr, CString},
-        io::{Read, Seek},
-    },
+    std::ffi::{CStr, CString},
 };
 
 decl_opaque! {
@@ -93,20 +89,6 @@ impl Font {
         new.load_from_memory_static(data)?;
         Ok(new)
     }
-    /// Creates a new `Font` from a streamable source.
-    ///
-    /// See [`Self::load_from_stream`].
-    ///
-    /// # Safety
-    ///
-    /// Also see [`Self::load_from_stream`].
-    pub unsafe fn from_stream<T: Read + Seek>(stream: &mut T) -> SfResult<FBox<Self>> {
-        let mut new = Self::new()?;
-        unsafe {
-            new.load_from_stream(stream)?;
-        }
-        Ok(new)
-    }
     /// Load the font from a file.
     ///
     /// The supported font formats are: TrueType, Type 1, CFF, OpenType, SFNT, X11 PCF,
@@ -133,22 +115,6 @@ impl Font {
     pub fn load_from_file(&mut self, path: &str) -> SfResult<()> {
         let c_str = CString::new(path)?;
         unsafe { ffi::sfFont_loadFromFile(self, c_str.as_ptr()) }.into_sf_result()
-    }
-
-    /// Load the font from a custom stream.
-    ///
-    /// The supported font formats are: TrueType, Type 1, CFF, OpenType, SFNT, X11 PCF,
-    /// Windows FNT, BDF, PFR and Type 42.
-    ///
-    /// # Safety
-    /// SFML cannot preload all the font data in this function, so the stream has to remain
-    /// accessible until the `Font` object loads a new font or is destroyed.
-    ///
-    /// # See also
-    /// [`Font::from_file`], [`Font::from_memory`]
-    pub unsafe fn load_from_stream<T: Read + Seek>(&mut self, stream: &mut T) -> SfResult<()> {
-        let mut input_stream = InputStream::new(stream);
-        unsafe { ffi::sfFont_loadFromStream(self, &mut *input_stream.stream) }.into_sf_result()
     }
 
     /// Load the font from a file in memory.
