@@ -4,9 +4,6 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/SFML/Window)
 
 # all source files
 set(SRC
-    ${INCROOT}/Clipboard.hpp
-    ${SRCROOT}/Clipboard.cpp
-    ${SRCROOT}/ClipboardImpl.hpp
     ${SRCROOT}/Context.cpp
     ${INCROOT}/Context.hpp
     ${SRCROOT}/Cursor.cpp
@@ -57,8 +54,6 @@ if(SFML_OS_WINDOWS)
     set(PLATFORM_SRC
         ${SRCROOT}/Win32/CursorImpl.hpp
         ${SRCROOT}/Win32/CursorImpl.cpp
-        ${SRCROOT}/Win32/ClipboardImpl.hpp
-        ${SRCROOT}/Win32/ClipboardImpl.cpp
         ${SRCROOT}/Win32/InputImpl.cpp
         ${SRCROOT}/Win32/InputImpl.hpp
         ${SRCROOT}/Win32/JoystickImpl.cpp
@@ -98,8 +93,6 @@ elseif(SFML_OS_LINUX OR SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR SFML_OS_NETBSD)
             ${SRCROOT}/EGLCheck.hpp
             ${SRCROOT}/DRM/CursorImpl.hpp
             ${SRCROOT}/DRM/CursorImpl.cpp
-            ${SRCROOT}/DRM/ClipboardImpl.hpp
-            ${SRCROOT}/DRM/ClipboardImpl.cpp
             ${SRCROOT}/Unix/SensorImpl.cpp
             ${SRCROOT}/Unix/SensorImpl.hpp
             ${SRCROOT}/DRM/InputImplUDev.cpp
@@ -114,8 +107,6 @@ elseif(SFML_OS_LINUX OR SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR SFML_OS_NETBSD)
         set(PLATFORM_SRC
             ${SRCROOT}/Unix/CursorImpl.hpp
             ${SRCROOT}/Unix/CursorImpl.cpp
-            ${SRCROOT}/Unix/ClipboardImpl.hpp
-            ${SRCROOT}/Unix/ClipboardImpl.cpp
             ${SRCROOT}/Unix/InputImpl.cpp
             ${SRCROOT}/Unix/InputImpl.hpp
             ${SRCROOT}/Unix/KeyboardImpl.hpp
@@ -184,8 +175,6 @@ elseif(SFML_OS_MACOSX)
         ${SRCROOT}/OSX/cg_sf_conversion.mm
         ${SRCROOT}/OSX/CursorImpl.hpp
         ${SRCROOT}/OSX/CursorImpl.mm
-        ${SRCROOT}/OSX/ClipboardImpl.hpp
-        ${SRCROOT}/OSX/ClipboardImpl.mm
         ${SRCROOT}/OSX/InputImpl.mm
         ${SRCROOT}/OSX/InputImpl.hpp
         ${SRCROOT}/OSX/HIDInputManager.hpp
@@ -233,8 +222,6 @@ elseif(SFML_OS_IOS)
     set(PLATFORM_SRC
         ${SRCROOT}/iOS/CursorImpl.hpp
         ${SRCROOT}/iOS/CursorImpl.cpp
-        ${SRCROOT}/iOS/ClipboardImpl.mm
-        ${SRCROOT}/iOS/ClipboardImpl.hpp
         ${SRCROOT}/iOS/EaglContext.mm
         ${SRCROOT}/iOS/EaglContext.hpp
         ${SRCROOT}/iOS/InputImpl.mm
@@ -265,8 +252,6 @@ elseif(SFML_OS_ANDROID)
         ${SRCROOT}/EglContext.hpp
         ${SRCROOT}/Android/CursorImpl.hpp
         ${SRCROOT}/Android/CursorImpl.cpp
-        ${SRCROOT}/Android/ClipboardImpl.hpp
-        ${SRCROOT}/Android/ClipboardImpl.cpp
         ${SRCROOT}/Android/WindowImplAndroid.hpp
         ${SRCROOT}/Android/WindowImplAndroid.cpp
         ${SRCROOT}/Android/VideoModeImpl.cpp

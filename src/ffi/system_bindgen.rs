@@ -22,7 +22,6 @@ pub fn sfStdStringVector_getLength(vec: *const sfStdStringVector) -> usize;
 // SfString.cpp
 pub fn sfString_getLength(string: *const sfString) -> usize;
 pub fn sfString_getData(string: *const sfString) -> *const u32;
-pub fn sfString_delete(string: *mut sfString);
 // Sleep.cpp
 pub fn sfSleep(duration_ms: i64);
 

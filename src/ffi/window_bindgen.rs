@@ -3,9 +3,6 @@
 
 unsafe extern "C" {
 
-// Clipboard.cpp
-pub fn sfClipboard_getUnicodeString() -> *mut sfString;
-pub fn sfClipboard_setUnicodeString(text: *const u32);
 // Context.cpp
 pub fn sfContext_new() -> *mut sfContext;
 pub fn sfContext_del(context: *mut sfContext);

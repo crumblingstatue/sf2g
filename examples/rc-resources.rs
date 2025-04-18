@@ -5,7 +5,7 @@ use sfml::{
         Shape, Sprite, Texture, Transformable,
     },
     system::Vector2f,
-    window::{Event, Key, Style, clipboard},
+    window::{Event, Key, Style},
 };
 
 include!("../example_common.rs");
@@ -162,16 +162,13 @@ fn main() -> SfResult<()> {
 
             match event {
                 Event::Closed => window.close(),
-                Event::KeyPressed { code, ctrl, .. } => match code {
+                Event::KeyPressed { code, .. } => match code {
                     Key::S => {
                         let smooth = !font.is_smooth();
                         font.set_smooth(smooth);
                     }
                     Key::T => {
                         show_texture_atlas ^= true;
-                    }
-                    Key::V if ctrl => {
-                        text_buf.push_str(&clipboard::get_string());
                     }
                     _ => {}
                 },

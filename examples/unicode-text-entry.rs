@@ -4,7 +4,7 @@ use sfml::{
         Color, Font, RectangleShape, RenderTarget, RenderWindow, Shape, Text, TextStyle,
         Transformable,
     },
-    window::{Event, Key, Style, clipboard},
+    window::{Event, Key, Style},
 };
 
 include!("../example_common.rs");
@@ -56,21 +56,6 @@ fn main() -> SfResult<()> {
                         string.push(unicode);
                     }
                     text.set_string(&string);
-                }
-                Event::KeyPressed {
-                    code: Key::V,
-                    ctrl: true,
-                    ..
-                } => {
-                    string.push_str(&clipboard::get_string());
-                    text.set_string(&string);
-                }
-                Event::KeyPressed {
-                    code: Key::C,
-                    ctrl: true,
-                    ..
-                } => {
-                    clipboard::set_string(text.string());
                 }
                 Event::KeyPressed { code, .. } => {
                     match code {

@@ -149,7 +149,6 @@ fn main() {
     if feat_window {
         build.files(
             [
-                "CSFML/src/Window/Clipboard.cpp",
                 "CSFML/src/Window/Cursor.cpp",
                 "CSFML/src/Window/Joystick.cpp",
                 "CSFML/src/Window/Keyboard.cpp",
