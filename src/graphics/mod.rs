@@ -7,7 +7,6 @@ pub use {
         circle_shape::CircleShape,
         color::Color,
         convex_shape::ConvexShape,
-        custom_shape::{CustomShape, CustomShapePoints},
         font::{Font, Info as FontInfo},
         glyph::Glyph,
         image::{Image, PixelAccessError},
@@ -37,7 +36,6 @@ pub mod blend_mode;
 mod circle_shape;
 mod color;
 mod convex_shape;
-mod custom_shape;
 mod font;
 pub mod glsl;
 mod glyph;

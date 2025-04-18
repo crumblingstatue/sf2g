@@ -3,8 +3,8 @@ use crate::{
     cpp::FBox,
     ffi::graphics as ffi,
     graphics::{
-        CircleShape, Color, ConvexShape, CustomShape, IntRect, PrimitiveType, RectangleShape,
-        RenderStates, RenderTarget, Sprite, Text, Vertex, VertexBuffer, View,
+        CircleShape, Color, ConvexShape, IntRect, PrimitiveType, RectangleShape, RenderStates,
+        RenderTarget, Sprite, Text, Vertex, VertexBuffer, View,
     },
     system::{SfStrConv, Vector2f, Vector2i, Vector2u},
     window::{ContextSettings, Cursor, Event, Handle, Style, VideoMode, thread_safety},
@@ -454,9 +454,6 @@ impl RenderTarget for RenderWindow {
     }
     fn draw_text(&mut self, text: &Text, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawText(self, text.raw(), render_states) }
-    }
-    fn draw_shape(&mut self, shape: &CustomShape, render_states: &RenderStates) {
-        unsafe { ffi::sfRenderWindow_drawShape(self, shape.raw().cast(), render_states) }
     }
     fn draw_sprite(&mut self, sprite: &Sprite, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawSprite(self, sprite.raw(), render_states) }

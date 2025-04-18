@@ -13,9 +13,6 @@ decl_opaque! {
     pub(crate) sfConvexShape;
     pub(crate) sfShader;
     pub(crate) sfRectangleShape;
-    pub(crate) sfCustomShape;
-    // Kind of unnecessary, but required by sf_render*_drawShape(...)
-    pub(crate) sfShape;
     pub(crate) sfSprite;
     pub(crate) sfText;
 }
@@ -251,10 +248,6 @@ pub struct sfGlslMat3 {
 pub struct sfGlslMat4 {
     pub array: [f32; 4 * 4],
 }
-
-type sfCustomShapeGetPointCountCb = Option<unsafe extern "C" fn(user_data: *mut c_void) -> usize>;
-type sfCustomShapeGetPointCb =
-    Option<unsafe extern "C" fn(idx: usize, user_data: *mut c_void) -> sfVector2f>;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

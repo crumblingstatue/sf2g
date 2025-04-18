@@ -1,7 +1,7 @@
 use crate::{
     graphics::{
-        CircleShape, Color, ConvexShape, CustomShape, IntRect, PrimitiveType, RectangleShape,
-        RenderStates, Sprite, Text, Vertex, VertexBuffer, View,
+        CircleShape, Color, ConvexShape, IntRect, PrimitiveType, RectangleShape, RenderStates,
+        Sprite, Text, Vertex, VertexBuffer, View,
     },
     system::{Vector2f, Vector2i, Vector2u},
 };
@@ -189,9 +189,6 @@ pub trait RenderTarget {
 
     /// Draw Text
     fn draw_text(&mut self, text: &Text, rs: &RenderStates);
-
-    /// Draw Shape
-    fn draw_shape(&mut self, shape: &CustomShape, rs: &RenderStates);
 
     /// Draw Sprite
     fn draw_sprite(&mut self, sprite: &Sprite, rs: &RenderStates);

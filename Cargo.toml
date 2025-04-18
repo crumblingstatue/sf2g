@@ -82,10 +82,6 @@ required-features = ["graphics"]
 doc-scrape-examples = true
 
 [[example]]
-name = "custom-shape"
-required-features = ["graphics"]
-
-[[example]]
 name = "mouse"
 required-features = ["graphics"]
 
