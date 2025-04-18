@@ -31,7 +31,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <stb_image_write.h>
 #include <cctype>
 #include <iterator>
 
@@ -236,91 +235,6 @@ bool ImageLoader::loadImageFromStream(InputStream& stream, std::vector<Uint8>& p
 
         return false;
     }
-}
-
-
-////////////////////////////////////////////////////////////
-bool ImageLoader::saveImageToFile(const std::string& filename, const std::vector<Uint8>& pixels, const Vector2u& size)
-{
-    // Make sure the image is not empty
-    if (!pixels.empty() && (size.x > 0) && (size.y > 0))
-    {
-        // Deduce the image type from its extension
-
-        // Extract the extension
-        const std::size_t dot = filename.find_last_of('.');
-        const std::string extension = dot != std::string::npos ? toLower(filename.substr(dot + 1)) : "";
-        const Vector2i convertedSize = Vector2i(size);
-
-        if (extension == "bmp")
-        {
-            // BMP format
-            if (stbi_write_bmp(filename.c_str(), convertedSize.x, convertedSize.y, 4, &pixels[0]))
-                return true;
-        }
-        else if (extension == "tga")
-        {
-            // TGA format
-            if (stbi_write_tga(filename.c_str(), convertedSize.x, convertedSize.y, 4, &pixels[0]))
-                return true;
-        }
-        else if (extension == "png")
-        {
-            // PNG format
-            if (stbi_write_png(filename.c_str(), convertedSize.x, convertedSize.y, 4, &pixels[0], 0))
-                return true;
-        }
-        else if (extension == "jpg" || extension == "jpeg")
-        {
-            // JPG format
-            if (stbi_write_jpg(filename.c_str(), convertedSize.x, convertedSize.y, 4, &pixels[0], 90))
-                return true;
-        }
-    }
-
-    err() << "Failed to save image \"" << filename << "\"" << std::endl;
-    return false;
-}
-
-////////////////////////////////////////////////////////////
-bool ImageLoader::saveImageToMemory(const std::string& format, std::vector<sf::Uint8>& output, const std::vector<Uint8>& pixels, const Vector2u& size)
-{
-    // Make sure the image is not empty
-    if (!pixels.empty() && (size.x > 0) && (size.y > 0))
-    {
-        // Choose function based on format
-
-        std::string specified = toLower(format);
-        const Vector2i convertedSize = Vector2i(size);
-
-        if (specified == "bmp")
-        {
-            // BMP format
-            if (stbi_write_bmp_to_func(&bufferFromCallback, &output, convertedSize.x, convertedSize.y, 4, &pixels[0]))
-                return true;
-        }
-        else if (specified == "tga")
-        {
-            // TGA format
-            if (stbi_write_tga_to_func(&bufferFromCallback, &output, convertedSize.x, convertedSize.y, 4, &pixels[0]))
-                return true;
-        }
-        else if (specified == "png")
-        {
-            // PNG format
-            if (stbi_write_png_to_func(&bufferFromCallback, &output, convertedSize.x, convertedSize.y, 4, &pixels[0], 0))
-                return true;
-        }
-        else if (specified == "jpg" || specified == "jpeg")
-        {
-            // JPG format
-            if (stbi_write_jpg_to_func(&bufferFromCallback, &output, convertedSize.x, convertedSize.y, 4, &pixels[0], 90))
-                return true;
-        }
-    }
-
-    err() << "Failed to save image with format \"" << format << "\"" << std::endl;
-    return false;
 }
 
 } // namespace priv
