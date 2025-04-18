@@ -96,12 +96,12 @@ fn main() -> SfResult<()> {
             let mut color = txt.fill_color();
             color.a -= 1;
             txt.set_fill_color(color);
-            window.draw(txt);
+            window.draw_text(txt, &RenderStates::DEFAULT);
         }
         if !cursor_visible {
-            window.draw(&circle);
+            window.draw_circle_shape(&circle, &RenderStates::DEFAULT);
         }
-        window.draw(&mp_text);
+        window.draw_text(&mp_text, &RenderStates::DEFAULT);
         window.display();
     }
     Ok(())

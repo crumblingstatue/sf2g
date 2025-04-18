@@ -1,10 +1,10 @@
 use crate::{
-    graphics::{Color, Drawable, FloatRect, IntRect, Texture, Transformable},
+    graphics::{Color,  FloatRect, IntRect, Texture, Transformable},
     system::Vector2f,
 };
 
 /// Trait for textured shapes with outline.
-pub trait Shape<'texture>: Drawable + Transformable {
+pub trait Shape<'texture>: Transformable {
     /// Changes the source texture of the shape.
     ///
     /// If `reset_rect` is `true`, the [`texture_rect`] property of the shape is automatically

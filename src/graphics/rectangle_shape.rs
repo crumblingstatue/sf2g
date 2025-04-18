@@ -2,7 +2,7 @@ use {
     crate::{
         ffi::graphics as ffi,
         graphics::{
-            Color, Drawable, FloatRect, IntRect, RenderStates, RenderTarget, Shape, Texture,
+            Color,  FloatRect, IntRect, Shape, Texture,
             Transform, Transformable,
         },
         system::Vector2f,
@@ -83,16 +83,6 @@ impl<'s> RectangleShape<'s> {
 impl Default for RectangleShape<'_> {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl Drawable for RectangleShape<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_rectangle_shape(self, states);
     }
 }
 

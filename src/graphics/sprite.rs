@@ -2,7 +2,7 @@ use {
     crate::{
         ffi::graphics as ffi,
         graphics::{
-            Color, Drawable, FloatRect, IntRect, RenderStates, RenderTarget, Texture, Transform,
+            Color,  FloatRect, IntRect, Texture, Transform,
             Transformable,
         },
         system::Vector2f,
@@ -177,16 +177,6 @@ impl<'s> Clone for Sprite<'s> {
             handle: NonNull::new(sp).expect("Failed to copy Sprite"),
             texture: PhantomData,
         }
-    }
-}
-
-impl Drawable for Sprite<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_sprite(self, states)
     }
 }
 

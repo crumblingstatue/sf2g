@@ -88,7 +88,7 @@ use {
 /// # let sprite: Sprite = unimplemented!();
 /// let mut states = RenderStates::default();;
 /// states.shader = Some(shader);
-/// window.draw_with_renderstates(&sprite, &states);
+/// window.draw_sprite(&sprite, &states);
 /// ```
 ///
 /// Shaders can be used on any drawable, but some combinations are not interesting.

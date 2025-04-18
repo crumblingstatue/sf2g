@@ -81,7 +81,7 @@ fn main() -> SfResult<()> {
         // Clear the window
         window.clear(Color::BLACK);
         window.draw_primitives(&vertex_array, PrimitiveType::LINE_STRIP, &rs);
-        window.draw(&bound_rect);
+        window.draw_rectangle_shape(&bound_rect, &RenderStates::DEFAULT);
         // Display things on screen
         window.display()
     }

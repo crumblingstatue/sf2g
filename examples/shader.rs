@@ -4,9 +4,9 @@ use {
         SfError, SfResult,
         cpp::FBox,
         graphics::{
-            Color, Drawable, Font, IntRect, PrimitiveType, RenderStates, RenderTarget,
-            RenderTexture, RenderWindow, Shader, ShaderType, Sprite, Text, Texture, Transform,
-            Transformable, Vertex,
+            Color, Font, IntRect, PrimitiveType, RenderStates, RenderTarget, RenderTexture,
+            RenderWindow, Shader, ShaderType, Sprite, Text, Texture, Transform, Transformable,
+            Vertex,
         },
         system::{Clock, Vector2f},
         window::{Event, Key, Style},
@@ -15,9 +15,14 @@ use {
 
 include!("../example_common.rs");
 
-trait Effect: Drawable {
+trait Effect {
     fn update(&mut self, t: f32, x: f32, y: f32) -> SfResult<()>;
     fn name(&self) -> &str;
+    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
+        &'a self,
+        target: &mut dyn RenderTarget,
+        states: &RenderStates<'texture, 'shader, 'shader_texture>,
+    );
 }
 
 struct Pixelate<'t> {
@@ -34,18 +39,7 @@ impl<'t> Pixelate<'t> {
             shader: Shader::from_file("pixelate.frag", ShaderType::Fragment)?,
         })
     }
-}
-
-impl Drawable for Pixelate<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        let mut states = *states;
-        states.shader = Some(&self.shader);
-        target.draw_with_renderstates(&self.sprite, &states);
-    }
+    
 }
 
 impl Effect for Pixelate<'_> {
@@ -55,6 +49,15 @@ impl Effect for Pixelate<'_> {
     }
     fn name(&self) -> &str {
         "pixelate"
+    }
+    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
+        &'a self,
+        target: &mut dyn RenderTarget,
+        states: &RenderStates<'texture, 'shader, 'shader_texture>,
+    ) {
+        let mut states = *states;
+        states.shader = Some(&self.shader);
+        target.draw_sprite(&self.sprite, &states);
     }
 }
 
@@ -94,18 +97,6 @@ impl<'fo> WaveBlur<'fo> {
     }
 }
 
-impl Drawable for WaveBlur<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        let mut states = *states;
-        states.shader = Some(&self.shader);
-        target.draw_with_renderstates(&self.text, &states);
-    }
-}
-
 impl Effect for WaveBlur<'_> {
     fn update(&mut self, t: f32, x: f32, y: f32) -> SfResult<()> {
         self.shader.set_uniform_float("wave_phase", t)?;
@@ -116,6 +107,15 @@ impl Effect for WaveBlur<'_> {
     }
     fn name(&self) -> &str {
         "wave + blur"
+    }
+    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
+        &'a self,
+        target: &mut dyn RenderTarget,
+        states: &RenderStates<'texture, 'shader, 'shader_texture>,
+    ) {
+        let mut states = *states;
+        states.shader = Some(&self.shader);
+        target.draw_text(&self.text, &states);
     }
 }
 
@@ -142,18 +142,7 @@ impl StormBlink {
         let shader = Shader::from_file_vert_frag("storm.vert", "blink.frag")?;
         Ok(Self { points, shader })
     }
-}
-
-impl Drawable for StormBlink {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        let mut states = *states;
-        states.shader = Some(&self.shader);
-        target.draw_primitives(&self.points, PrimitiveType::POINTS, &states);
-    }
+    
 }
 
 impl Effect for StormBlink {
@@ -170,6 +159,15 @@ impl Effect for StormBlink {
     }
     fn name(&self) -> &str {
         "storm + blink"
+    }
+    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
+        &'a self,
+        target: &mut dyn RenderTarget,
+        states: &RenderStates<'texture, 'shader, 'shader_texture>,
+    ) {
+        let mut states = *states;
+        states.shader = Some(&self.shader);
+        target.draw_primitives(&self.points, PrimitiveType::POINTS, &states);
     }
 }
 
@@ -205,18 +203,7 @@ impl<'t> Edge<'t> {
             shader,
         })
     }
-}
-
-impl Drawable for Edge<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        let mut states = *states;
-        states.shader = Some(&self.shader);
-        target.draw_with_renderstates(&Sprite::with_texture(self.surface.texture()), &states);
-    }
+    
 }
 
 impl Effect for Edge<'_> {
@@ -233,15 +220,25 @@ impl Effect for Edge<'_> {
             en.set_position(pos);
         }
         self.surface.clear(Color::WHITE);
-        self.surface.draw(&self.bg_sprite);
+        self.surface
+            .draw_sprite(&self.bg_sprite, &RenderStates::DEFAULT);
         for en in &self.entities {
-            self.surface.draw(en);
+            self.surface.draw_sprite(en, &RenderStates::DEFAULT);
         }
         self.surface.display();
         Ok(())
     }
     fn name(&self) -> &str {
         "edge post-effect"
+    }
+    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
+        &'a self,
+        target: &mut dyn RenderTarget,
+        states: &RenderStates<'texture, 'shader, 'shader_texture>,
+    ) {
+        let mut states = *states;
+        states.shader = Some(&self.shader);
+        target.draw_sprite(&Sprite::with_texture(self.surface.texture()), &states);
     }
 }
 
@@ -283,20 +280,7 @@ impl<'tex> Geometry<'tex> {
             transform: Transform::IDENTITY,
         })
     }
-}
-
-impl Drawable for Geometry<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        let mut states = *states;
-        states.shader = Some(&self.shader);
-        states.texture = Some(self.texture);
-        states.transform = self.transform;
-        target.draw_primitives(&self.point_cloud, PrimitiveType::POINTS, &states);
-    }
+    
 }
 
 impl Effect for Geometry<'_> {
@@ -311,6 +295,17 @@ impl Effect for Geometry<'_> {
 
     fn name(&self) -> &str {
         "Geometry Shader Billboards"
+    }
+    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
+        &'a self,
+        target: &mut dyn RenderTarget,
+        states: &RenderStates<'texture, 'shader, 'shader_texture>,
+    ) {
+        let mut states = *states;
+        states.shader = Some(&self.shader);
+        states.texture = Some(self.texture);
+        states.transform = self.transform;
+        target.draw_primitives(&self.point_cloud, PrimitiveType::POINTS, &states);
     }
 }
 
@@ -388,10 +383,10 @@ fn main() -> SfResult<()> {
         effects[current].update(clock.elapsed_time().as_seconds(), x, y)?;
 
         window.clear(Color::rgb(255, 128, 0));
-        window.draw(effects[current]);
-        window.draw(&text_bg);
-        window.draw(&instructions);
-        window.draw(&desc);
+        effects[current].draw(&mut *window, &RenderStates::DEFAULT);
+        window.draw_sprite(&text_bg, &RenderStates::DEFAULT);
+        window.draw_text(&instructions, &RenderStates::DEFAULT);
+        window.draw_text(&desc, &RenderStates::DEFAULT);
         window.display();
     }
     Ok(())

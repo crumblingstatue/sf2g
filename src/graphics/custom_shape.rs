@@ -2,7 +2,7 @@ use {
     crate::{
         ffi::{graphics as ffi, sfVector2f},
         graphics::{
-            Color, Drawable, FloatRect, IntRect, RenderStates, RenderTarget, Shape, Texture,
+            Color,  FloatRect, IntRect, Shape, Texture,
             Transform, Transformable,
         },
         system::Vector2f,
@@ -153,16 +153,6 @@ impl<'s> Shape<'s> for CustomShape<'s> {
     }
     fn global_bounds(&self) -> FloatRect {
         unsafe { ffi::sfCustomShape_getGlobalBounds(self.handle.as_ptr()) }
-    }
-}
-
-impl Drawable for CustomShape<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_shape(self, states)
     }
 }
 

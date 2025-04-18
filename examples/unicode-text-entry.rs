@@ -1,10 +1,7 @@
 use sfml::{
-    SfResult,
     graphics::{
-        Color, Font, RectangleShape, RenderTarget, RenderWindow, Shape, Text, TextStyle,
-        Transformable,
-    },
-    window::{Event, Key, Style},
+        Color, Font, RectangleShape, RenderStates, RenderTarget, RenderWindow, Shape, Text, TextStyle, Transformable
+    }, window::{Event, Key, Style}, SfResult
 };
 
 include!("../example_common.rs");
@@ -110,7 +107,7 @@ fn main() -> SfResult<()> {
         status_text.set_string(&status_string);
 
         window.clear(Color::BLACK);
-        window.draw(&text);
+        window.draw_text(&text, &RenderStates::DEFAULT);
         if show_cursor {
             let mut end = text.find_character_pos(usize::MAX);
             end.x += 2.0;
@@ -121,9 +118,9 @@ fn main() -> SfResult<()> {
             rs.set_outline_thickness(-3.0);
             rs.set_position(end);
             rs.set_size((8.0, 24.0));
-            window.draw(&rs);
+            window.draw_rectangle_shape(&rs, &RenderStates::DEFAULT);
         }
-        window.draw(&status_text);
+        window.draw_text(&status_text, &RenderStates::DEFAULT);
         window.display();
     }
     println!("The final text is {:?}", text.string().to_rust_string());

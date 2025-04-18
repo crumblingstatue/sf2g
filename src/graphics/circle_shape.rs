@@ -2,7 +2,7 @@ use {
     crate::{
         ffi::graphics as ffi,
         graphics::{
-            Color, Drawable, FloatRect, IntRect, RenderStates, RenderTarget, Shape, Texture,
+            Color, FloatRect, IntRect, Shape, Texture,
             Transform, Transformable,
         },
         system::Vector2f,
@@ -82,16 +82,6 @@ impl Default for CircleShape<'_> {
             handle: NonNull::new(circle).expect("Failed to create CircleShape"),
             texture: PhantomData,
         }
-    }
-}
-
-impl Drawable for CircleShape<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_circle_shape(self, states)
     }
 }
 

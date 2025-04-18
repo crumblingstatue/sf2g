@@ -1,9 +1,7 @@
 use sfml::{
-    SfResult,
     graphics::{
-        Color, PrimitiveType, RenderTarget, RenderWindow, Vertex, VertexBuffer, VertexBufferUsage,
-    },
-    window::{Event, Style, mouse::Button},
+        Color, PrimitiveType, RenderStates, RenderTarget, RenderWindow, Vertex, VertexBuffer, VertexBufferUsage
+    }, window::{mouse::Button, Event, Style}, SfResult
 };
 
 fn main() -> SfResult<()> {
@@ -50,7 +48,7 @@ fn main() -> SfResult<()> {
         }
         // Clear the window
         window.clear(Color::BLACK);
-        window.draw(&*vertex_buffer);
+        window.draw_vertex_buffer(&vertex_buffer, &RenderStates::DEFAULT);
         // Display things on screen
         window.display()
     }

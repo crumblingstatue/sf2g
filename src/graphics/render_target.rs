@@ -1,7 +1,7 @@
 use crate::{
     graphics::{
-        CircleShape, Color, ConvexShape, CustomShape, Drawable, IntRect, PrimitiveType, RcSprite,
-        RcText, RectangleShape, RenderStates, Sprite, Text, Vertex, VertexBuffer, View,
+        CircleShape, Color, ConvexShape, CustomShape,  IntRect, PrimitiveType,
+        RectangleShape, RenderStates, Sprite, Text, Vertex, VertexBuffer, View,
     },
     system::{Vector2f, Vector2i, Vector2u},
 };
@@ -146,19 +146,6 @@ pub trait RenderTarget {
     /// Return the converted point, in "world" units
     fn map_coords_to_pixel_current_view(&self, point: Vector2f) -> Vector2i;
 
-    /// Draw a drawable object to the render target
-    ///
-    /// # Arguments
-    /// * object - Object to draw
-    fn draw(&mut self, object: &dyn Drawable);
-
-    /// Draw a drawable object to the render-target with a [`RenderStates`]
-    ///
-    /// # Arguments
-    /// * object - Object to draw
-    /// * renderStates - The renderStates to associate to the object
-    fn draw_with_renderstates(&mut self, object: &dyn Drawable, render_states: &RenderStates);
-
     /// Get the size of the rendering region of a window
     ///
     /// The size doesn't include the titlebar and borders of the window.
@@ -203,17 +190,12 @@ pub trait RenderTarget {
     /// Draw Text
     fn draw_text(&mut self, text: &Text, rs: &RenderStates);
 
-    /// Draw `RcText`
-    fn draw_rc_text(&mut self, text: &RcText, rs: &RenderStates);
 
     /// Draw Shape
     fn draw_shape(&mut self, shape: &CustomShape, rs: &RenderStates);
 
     /// Draw Sprite
     fn draw_sprite(&mut self, sprite: &Sprite, rs: &RenderStates);
-
-    /// Draw `RcSprite`
-    fn draw_rc_sprite(&mut self, sprite: &RcSprite, rs: &RenderStates);
 
     /// Draw `CircleShape`
     fn draw_circle_shape(&mut self, circle_shape: &CircleShape, rs: &RenderStates);

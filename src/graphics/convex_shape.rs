@@ -2,7 +2,7 @@ use {
     crate::{
         ffi::graphics as ffi,
         graphics::{
-            Color, Drawable, FloatRect, IntRect, RenderStates, RenderTarget, Shape, Texture,
+            Color,  FloatRect, IntRect, Shape, Texture,
             Transform, Transformable,
         },
         system::Vector2f,
@@ -92,16 +92,6 @@ impl<'s> ConvexShape<'s> {
 
     pub(super) fn raw(&self) -> *const ffi::sfConvexShape {
         self.handle.as_ptr()
-    }
-}
-
-impl Drawable for ConvexShape<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_convex_shape(self, states)
     }
 }
 

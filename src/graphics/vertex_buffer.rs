@@ -2,7 +2,7 @@ use crate::{
     IntoSfResult, SfResult,
     cpp::FBox,
     ffi::graphics as ffi,
-    graphics::{Drawable, PrimitiveType, RenderStates, RenderTarget, Vertex},
+    graphics::{PrimitiveType, Vertex},
 };
 
 /// Usage specifiers for a [`VertexBuffer`]
@@ -237,15 +237,5 @@ impl Drop for VertexBuffer {
         unsafe {
             ffi::sfVertexBuffer_del(self);
         }
-    }
-}
-
-impl Drawable for VertexBuffer {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_vertex_buffer(self, states)
     }
 }

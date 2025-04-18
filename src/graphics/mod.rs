@@ -8,15 +8,10 @@ pub use {
         color::Color,
         convex_shape::ConvexShape,
         custom_shape::{CustomShape, CustomShapePoints},
-        drawable::Drawable,
         font::{Font, Info as FontInfo},
         glyph::Glyph,
         image::{Image, PixelAccessError},
         primitive_type::PrimitiveType,
-        rc_font::RcFont,
-        rc_sprite::RcSprite,
-        rc_text::RcText,
-        rc_texture::RcTexture,
         rect::{FloatRect, IntRect, Rect},
         rectangle_shape::RectangleShape,
         render_states::RenderStates,
@@ -43,16 +38,11 @@ mod circle_shape;
 mod color;
 mod convex_shape;
 mod custom_shape;
-mod drawable;
 mod font;
 pub mod glsl;
 mod glyph;
 mod image;
 mod primitive_type;
-mod rc_font;
-mod rc_sprite;
-mod rc_text;
-mod rc_texture;
 mod rect;
 mod rectangle_shape;
 mod render_states;

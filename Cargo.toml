@@ -1,6 +1,6 @@
 [package]
-name = "sfml"
-description = "Rust binding for sfml"
+name = "sf2g"
+description = "Minimal Rust binding for SFML2 Graphics submodule"
 version = "0.24.0"
 authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
 documentation = "https://docs.rs/sfml"
@@ -82,10 +82,6 @@ required-features = ["graphics"]
 doc-scrape-examples = true
 
 [[example]]
-name = "custom-drawable"
-required-features = ["graphics"]
-
-[[example]]
 name = "custom-shape"
 required-features = ["graphics"]
 
@@ -124,10 +120,6 @@ required-features = ["graphics"]
 [[example]]
 name = "joystick"
 required-features = ["window"]
-
-[[example]]
-name = "rc-resources"
-required-features = ["graphics", "window"]
 
 [[example]]
 name = "window-test"

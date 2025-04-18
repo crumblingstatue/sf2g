@@ -1,10 +1,7 @@
 use sfml::{
-    SfResult,
     graphics::{
-        Color, CustomShape, CustomShapePoints, RenderTarget, RenderWindow, Shape, Transformable,
-    },
-    system::{Clock, Vector2f},
-    window::{Event, Key, Style},
+        Color, CustomShape, CustomShapePoints, RenderStates, RenderTarget, RenderWindow, Shape, Transformable
+    }, system::{Clock, Vector2f}, window::{Event, Key, Style}, SfResult
 };
 
 #[derive(Clone, Copy)]
@@ -77,7 +74,7 @@ fn main() -> SfResult<()> {
         shape.set_fill_color(hue_time(t));
         shape.set_outline_color(hue_time(t / 2.0));
         window.clear(Color::BLACK);
-        window.draw(&shape);
+        window.draw_shape(&shape, &RenderStates::DEFAULT);
         window.display();
     }
     Ok(())

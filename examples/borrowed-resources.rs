@@ -1,10 +1,7 @@
 use sfml::{
-    SfResult,
     graphics::{
-        CircleShape, Color, ConvexShape, Font, RenderTarget, RenderWindow, Shape, Sprite, Text,
-        Texture, Transformable,
-    },
-    window::{Event, Key, Style},
+        CircleShape, Color, ConvexShape, Font, RenderStates, RenderTarget, RenderWindow, Shape, Sprite, Text, Texture, Transformable
+    }, window::{Event, Key, Style}, SfResult
 };
 
 include!("../example_common.rs");
@@ -76,12 +73,13 @@ fn main() -> SfResult<()> {
         }
 
         window.clear(Color::BLACK);
-        window.draw(&circle);
-        window.draw(&sprite);
-        window.draw(&convex_shape);
-        window.draw(&title);
-        window.draw(&second_text);
-        window.draw(&third_text);
+        let rs = RenderStates::DEFAULT;
+        window.draw_circle_shape(&circle, &rs);
+        window.draw_sprite(&sprite, &rs);
+        window.draw_convex_shape(&convex_shape, &rs);
+        window.draw_text(&title, &rs);
+        window.draw_text(&second_text, &rs);
+        window.draw_text(&third_text, &rs);
 
         // Little test here for `Shape::points`
         let mut circ = CircleShape::new(4.0, 30);
@@ -90,7 +88,7 @@ fn main() -> SfResult<()> {
 
         for p in convex_shape.points() {
             circ.set_position(p);
-            window.draw(&circ);
+            window.draw_circle_shape(&circ, &RenderStates::DEFAULT);
         }
 
         window.display();

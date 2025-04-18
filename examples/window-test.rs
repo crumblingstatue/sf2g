@@ -1,7 +1,5 @@
 use sfml::{
-    SfResult,
-    graphics::{Color, Font, RenderTarget, RenderWindow, Text, Transformable},
-    window::{ContextSettings, Event, Key, Style, VideoMode},
+    graphics::{Color, Font, RenderStates, RenderTarget, RenderWindow, Text, Transformable}, window::{ContextSettings, Event, Key, Style, VideoMode}, SfResult
 };
 
 struct WindowConfig {
@@ -73,7 +71,7 @@ fn main() -> SfResult<()> {
         rw.clear(Color::BLACK);
         let fontsize = 16;
         let mut txt = Text::new("Arrow keys to select mode, enter to set.", &font, fontsize);
-        rw.draw(&txt);
+        rw.draw_text(&txt, &RenderStates::DEFAULT);
         let mut y = fontsize as f32;
         for (i, cfg) in configs.iter().enumerate() {
             let fc = if i == cfg_idx {
@@ -87,7 +85,7 @@ fn main() -> SfResult<()> {
                 cfg.mode.0, cfg.mode.1, cfg.title, cfg.style
             ));
             txt.set_position((0., y));
-            rw.draw(&txt);
+            rw.draw_text(&txt, &RenderStates::DEFAULT);
             y += fontsize as f32;
         }
         let mut i = configs.len();
@@ -95,7 +93,7 @@ fn main() -> SfResult<()> {
         txt.set_position((0., y));
         txt.set_fill_color(Color::WHITE);
         txt.set_string("= Fullscreen modes =");
-        rw.draw(&txt);
+        rw.draw_text(&txt, &RenderStates::DEFAULT);
         for mode in fs_modes.iter() {
             let n_rows = 23;
             let column = i / n_rows;
@@ -115,7 +113,7 @@ fn main() -> SfResult<()> {
                 "{}x{}x{}",
                 mode.width, mode.height, mode.bits_per_pixel
             ));
-            rw.draw(&txt);
+            rw.draw_text(&txt, &RenderStates::DEFAULT);
             i += 1;
         }
         rw.display();

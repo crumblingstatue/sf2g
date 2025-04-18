@@ -1,12 +1,9 @@
 use {
     glu_sys as gl,
     sfml::{
-        SfResult,
         graphics::{
-            Color, Font, IntRect, RenderTarget, RenderWindow, Sprite, Text, Texture, Transformable,
-        },
-        system::Clock,
-        window::{ContextSettings, Event, Key, Style},
+            Color, Font, IntRect, RenderStates, RenderTarget, RenderWindow, Sprite, Text, Texture, Transformable
+        }, system::Clock, window::{ContextSettings, Event, Key, Style}, SfResult
     },
     std::{ffi::c_void, mem::size_of},
 };
@@ -147,7 +144,7 @@ fn main() -> SfResult<()> {
                 }
             }
             window.push_gl_states();
-            window.draw(&bg_sprite);
+            window.draw_sprite(&bg_sprite, &RenderStates::DEFAULT);
             window.pop_gl_states();
 
             if let Err(e) = window.set_active(true) {
@@ -173,9 +170,9 @@ fn main() -> SfResult<()> {
                 eprintln!("Failed to set window as active: {e}");
             }
             window.push_gl_states();
-            window.draw(&text);
-            window.draw(&srgb_instr);
-            window.draw(&mipmap_instr);
+            window.draw_text(&text, &RenderStates::DEFAULT);
+            window.draw_text(&srgb_instr, &RenderStates::DEFAULT);
+            window.draw_text(&mipmap_instr, &RenderStates::DEFAULT);
             window.pop_gl_states();
             window.display();
         }

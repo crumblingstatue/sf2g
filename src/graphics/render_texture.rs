@@ -3,8 +3,8 @@ use crate::{
     cpp::FBox,
     ffi::graphics as ffi,
     graphics::{
-        CircleShape, Color, ConvexShape, CustomShape, Drawable, IntRect, PrimitiveType, RcSprite,
-        RcText, RectangleShape, RenderStates, RenderTarget, Sprite, Text, Texture, Vertex,
+        CircleShape, Color, ConvexShape, CustomShape,  IntRect, PrimitiveType, 
+         RectangleShape, RenderStates, RenderTarget, Sprite, Text, Texture, Vertex,
         VertexBuffer, View,
     },
     system::{Vector2f, Vector2i, Vector2u},
@@ -166,25 +166,13 @@ impl RenderTarget for RenderTexture {
     fn map_coords_to_pixel_current_view(&self, point: Vector2f) -> Vector2i {
         unsafe { ffi::sfRenderTexture_mapCoordsToPixel(self, point) }
     }
-    fn draw(&mut self, object: &dyn Drawable) {
-        object.draw(self, &RenderStates::DEFAULT);
-    }
-    fn draw_with_renderstates(&mut self, object: &dyn Drawable, render_states: &RenderStates) {
-        object.draw(self, render_states);
-    }
     fn draw_text(&mut self, text: &Text, rs: &RenderStates) {
-        unsafe { ffi::sfRenderTexture_drawText(self, text.raw(), rs) }
-    }
-    fn draw_rc_text(&mut self, text: &RcText, rs: &RenderStates) {
         unsafe { ffi::sfRenderTexture_drawText(self, text.raw(), rs) }
     }
     fn draw_shape(&mut self, shape: &CustomShape, rs: &RenderStates) {
         unsafe { ffi::sfRenderTexture_drawShape(self, shape.raw().cast(), rs) }
     }
     fn draw_sprite(&mut self, sprite: &Sprite, rs: &RenderStates) {
-        unsafe { ffi::sfRenderTexture_drawSprite(self, sprite.raw(), rs) }
-    }
-    fn draw_rc_sprite(&mut self, sprite: &RcSprite, rs: &RenderStates) {
         unsafe { ffi::sfRenderTexture_drawSprite(self, sprite.raw(), rs) }
     }
     fn draw_circle_shape(&mut self, circle_shape: &CircleShape, rs: &RenderStates) {

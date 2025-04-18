@@ -2,7 +2,7 @@ use {
     crate::{
         ffi::graphics as ffi,
         graphics::{
-            Color, Drawable, FloatRect, Font, RenderStates, RenderTarget, TextStyle, Transform,
+            Color,  FloatRect, Font, TextStyle, Transform,
             Transformable,
         },
         system::{SfStr, SfStrConv, Vector2f},
@@ -265,16 +265,6 @@ impl<'s> Clone for Text<'s> {
             handle: NonNull::new(sp).expect("Not enough memory to clone Text"),
             font: PhantomData,
         }
-    }
-}
-
-impl Drawable for Text<'_> {
-    fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
-        target: &mut dyn RenderTarget,
-        states: &RenderStates<'texture, 'shader, 'shader_texture>,
-    ) {
-        target.draw_text(self, states)
     }
 }
 

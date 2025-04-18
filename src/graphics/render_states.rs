@@ -22,10 +22,10 @@ use crate::graphics::{BlendMode, Shader, Texture, Transform};
 /// render states explicitly – the default set of states is ok in most cases.
 ///
 /// ```no_run
-/// # use sfml::graphics::RenderTarget;
+/// # use sfml::graphics::{RenderTarget, RenderStates};
 /// # let window: sfml::graphics::RenderWindow = unimplemented!();
 /// # let sprite: sfml::graphics::Sprite = unimplemented!();
-/// window.draw(&sprite);
+/// window.draw_sprite(&sprite, &RenderStates::DEFAULT);
 /// ```
 ///
 /// To draw with a specific render state, use [`RenderTarget::draw_with_renderstates`].
@@ -37,7 +37,7 @@ use crate::graphics::{BlendMode, Shader, Texture, Transform};
 /// # let sprite: Sprite = unimplemented!();
 /// let mut states = RenderStates::default();
 /// states.shader = Some(&shader);
-/// window.draw_with_renderstates(&sprite, &states);
+/// window.draw_sprite(&sprite, &states);
 /// ```
 ///
 /// When you're inside the `draw` function of a drawable object (implementing [`Drawable`]),

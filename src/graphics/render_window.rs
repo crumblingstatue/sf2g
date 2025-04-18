@@ -3,8 +3,8 @@ use crate::{
     cpp::FBox,
     ffi::graphics as ffi,
     graphics::{
-        CircleShape, Color, ConvexShape, CustomShape, Drawable, IntRect, PrimitiveType, RcSprite,
-        RcText, RectangleShape, RenderStates, RenderTarget, Sprite, Text, Vertex, VertexBuffer,
+        CircleShape, Color, ConvexShape, CustomShape,  IntRect, PrimitiveType,
+         RectangleShape, RenderStates, RenderTarget, Sprite, Text, Vertex, VertexBuffer,
         View,
     },
     system::{SfStrConv, Vector2f, Vector2i, Vector2u},
@@ -453,25 +453,13 @@ impl RenderTarget for RenderWindow {
     fn size(&self) -> Vector2u {
         unsafe { ffi::sfRenderWindow_getSize(self) }
     }
-    fn draw(&mut self, object: &dyn Drawable) {
-        object.draw(self, &RenderStates::DEFAULT);
-    }
-    fn draw_with_renderstates(&mut self, object: &dyn Drawable, render_states: &RenderStates) {
-        object.draw(self, render_states);
-    }
     fn draw_text(&mut self, text: &Text, render_states: &RenderStates) {
-        unsafe { ffi::sfRenderWindow_drawText(self, text.raw(), render_states) }
-    }
-    fn draw_rc_text(&mut self, text: &RcText, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawText(self, text.raw(), render_states) }
     }
     fn draw_shape(&mut self, shape: &CustomShape, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawShape(self, shape.raw().cast(), render_states) }
     }
     fn draw_sprite(&mut self, sprite: &Sprite, render_states: &RenderStates) {
-        unsafe { ffi::sfRenderWindow_drawSprite(self, sprite.raw(), render_states) }
-    }
-    fn draw_rc_sprite(&mut self, sprite: &RcSprite, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawSprite(self, sprite.raw(), render_states) }
     }
     fn draw_circle_shape(&mut self, circle_shape: &CircleShape, render_states: &RenderStates) {

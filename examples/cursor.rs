@@ -1,10 +1,7 @@
 use sfml::{
-    SfResult,
     graphics::{
-        Color, Font, Rect, RectangleShape, RenderTarget, RenderWindow, Shape, Text, Transformable,
-    },
-    system::Vector2,
-    window::{ContextSettings, Cursor, CursorType, Event, Style, mouse},
+        Color, Font, Rect, RectangleShape, RenderStates, RenderTarget, RenderWindow, Shape, Text, Transformable
+    }, system::Vector2, window::{mouse, ContextSettings, Cursor, CursorType, Event, Style}, SfResult
 };
 
 include!("../example_common.rs");
@@ -53,8 +50,8 @@ fn draw_button(
     text.set_position((rect.left as f32 + 12.0, rect.top as f32 + 8.0));
     text.set_fill_color(text_fill);
     text.set_string(string);
-    render_window.draw(shape);
-    render_window.draw(text);
+    render_window.draw_rectangle_shape(shape, &RenderStates::DEFAULT);
+    render_window.draw_text(text, &RenderStates::DEFAULT);
 }
 
 fn bstyle(highlighted: bool, selected: bool, error: bool) -> ButtonStyle {
@@ -291,7 +288,7 @@ fn main() -> SfResult<()> {
                     DRAW_AREA_TOPLEFT.0 as f32 + (x as f32 * DRAW_CELL_WH as f32),
                     DRAW_AREA_TOPLEFT.1 as f32 + (y as f32 * DRAW_CELL_WH as f32),
                 ));
-                rw.draw(&shape);
+                rw.draw_rectangle_shape(&shape, &RenderStates::DEFAULT);
             }
         }
         draw_button(
