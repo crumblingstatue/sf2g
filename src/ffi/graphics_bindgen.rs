@@ -87,24 +87,6 @@ pub fn sfFont_getTexture(font: *const sfFont, characterSize: c_uint) -> *const s
 pub fn sfFont_isSmooth(font: *const sfFont) -> bool;
 pub fn sfFont_setSmooth(font: *mut sfFont, smooth: bool);
 pub fn sfFont_getInfo(font: *const sfFont) -> sfFontInfo;
-// Image.cpp
-pub fn sfImage_new() -> *mut sfImage;
-pub fn sfImage_cpy(image: *const sfImage) -> *mut sfImage;
-pub fn sfImage_del(image: *mut sfImage);
-pub fn sfImage_create_w_h_color(image: *mut sfImage, width: c_uint, height: c_uint, color: sfColor);
-pub fn sfImage_create_w_h_pixels(image: *mut sfImage, width: c_uint, height: c_uint, data: *const u8);
-pub fn sfImage_loadFromFile(image: *mut sfImage, filename: *const c_char) -> bool;
-pub fn sfImage_loadFromMemory(image: *mut sfImage, data: *const u8, sizeInBytes: usize) -> bool;
-pub fn sfImage_loadFromStream(image: *mut sfImage, stream: *mut sfInputStreamHelper) -> bool;
-pub fn sfImage_saveToFile(image: *const sfImage, filename: *const c_char) -> bool;
-pub fn sfImage_createMaskFromColor(image: *mut sfImage, colorKey: sfColor, alpha: u8);
-pub fn sfImage_copy(image: *mut sfImage, source: *const sfImage, destX: c_uint, destY: c_uint, sourceRect: sfIntRect, applyAlpha: bool);
-pub fn sfImage_setPixel(image: *mut sfImage, x: c_uint, y: c_uint, color: sfColor);
-pub fn sfImage_getPixel(image: *const sfImage, x: c_uint, y: c_uint) -> sfColor;
-pub fn sfImage_getPixelsPtr(image: *const sfImage) -> *const u8;
-pub fn sfImage_getSize(image: *const sfImage) -> sfVector2u;
-pub fn sfImage_flipHorizontally(image: *mut sfImage);
-pub fn sfImage_flipVertically(image: *mut sfImage);
 // RectangleShape.cpp
 pub fn sfRectangleShape_new() -> *mut sfRectangleShape;
 pub fn sfRectangleShape_cpy(shape: *const sfRectangleShape) -> *mut sfRectangleShape;
@@ -333,12 +315,9 @@ pub fn sfTexture_create(tex: *mut sfTexture, width: c_uint, height: c_uint) -> b
 pub fn sfTexture_loadFromFile(tex: *mut sfTexture, filename: *const c_char, area: sfIntRect) -> bool;
 pub fn sfTexture_loadFromMemory(tex: *mut sfTexture, data: *const c_void, sizeInBytes: usize, area: sfIntRect) -> bool;
 pub fn sfTexture_loadFromStream(tex: *mut sfTexture, stream: *mut sfInputStreamHelper, area: sfIntRect) -> bool;
-pub fn sfTexture_loadFromImage(tex: *mut sfTexture, image: *const sfImage, area: sfIntRect) -> bool;
 pub fn sfTexture_getSize(texture: *const sfTexture) -> sfVector2u;
-pub fn sfTexture_copyToImage(texture: *const sfTexture) -> *mut sfImage;
 pub fn sfTexture_updateFromPixels(texture: *mut sfTexture, pixels: *const u8, width: c_uint, height: c_uint, x: c_uint, y: c_uint);
 pub fn sfTexture_updateFromTexture(destination: *mut sfTexture, texture: *const sfTexture, x: c_uint, y: c_uint);
-pub fn sfTexture_updateFromImage(texture: *mut sfTexture, image: *const sfImage, x: c_uint, y: c_uint);
 pub fn sfTexture_updateFromWindow(texture: *mut sfTexture, window: *const sfWindow, x: c_uint, y: c_uint);
 pub fn sfTexture_updateFromRenderWindow(texture: *mut sfTexture, renderWindow: *const sfRenderWindow, x: c_uint, y: c_uint);
 pub fn sfTexture_setSmooth(texture: *mut sfTexture, smooth: bool);

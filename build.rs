@@ -163,7 +163,6 @@ fn main() {
                 "CSFML/src/Graphics/CircleShape.cpp",
                 "CSFML/src/Graphics/ConvexShape.cpp",
                 "CSFML/src/Graphics/Font.cpp",
-                "CSFML/src/Graphics/Image.cpp",
                 "CSFML/src/Graphics/RectangleShape.cpp",
                 "CSFML/src/Graphics/RenderTexture.cpp",
                 "CSFML/src/Graphics/RenderWindow.cpp",

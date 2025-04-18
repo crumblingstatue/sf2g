@@ -20,7 +20,6 @@ decl_opaque! {
 type sfTexture = crate::graphics::Texture;
 type sfView = crate::graphics::View;
 type sfFont = crate::graphics::Font;
-type sfImage = crate::graphics::Image;
 type sfRenderWindow = crate::graphics::RenderWindow;
 type sfRenderTexture = crate::graphics::RenderTexture;
 type sfVertexBuffer = crate::graphics::VertexBuffer;

@@ -1,9 +1,9 @@
 use {
     crate::{
-        IntoSfResult, SfError, SfResult,
+        IntoSfResult, SfResult,
         cpp::FBox,
         ffi::graphics::{self as ffi, sfTexture_create},
-        graphics::{Image, IntRect, RenderWindow},
+        graphics::{IntRect, RenderWindow},
         system::{InputStream, Vector2u},
         window::Window,
     },
@@ -123,26 +123,6 @@ impl Texture {
         new.load_from_file(filename, IntRect::default())?;
         Ok(new)
     }
-
-    /// Convenience method to easily create and load a `Texture` from an iamge.
-    pub fn from_image(image: &Image, area: IntRect) -> SfResult<FBox<Self>> {
-        let mut new = Self::new()?;
-        new.load_from_image(image, area)?;
-        Ok(new)
-    }
-
-    /// Load texture from an image
-    ///
-    /// # Arguments
-    ///
-    /// - `image`: Image to upload to the texture
-    /// - `area`: Can be used to load only a sub-rectangle of the whole image.
-    ///   If you want the entire image then use a default `IntRect`.
-    ///   If the area rectangle crosses the bounds of the image,
-    ///   it is adjusted to fit the image size.
-    pub fn load_from_image(&mut self, image: &Image, area: IntRect) -> SfResult<()> {
-        unsafe { ffi::sfTexture_loadFromImage(self, image, area).into_sf_result() }
-    }
 }
 
 /// Query properties
@@ -255,14 +235,6 @@ impl Texture {
 
 /// Copying and updating
 impl Texture {
-    /// Copy a texture's pixels to an image
-    ///
-    /// Return an image containing the texture's pixels
-    pub fn copy_to_image(&self) -> SfResult<FBox<Image>> {
-        let img = unsafe { ffi::sfTexture_copyToImage(self) };
-        FBox::new(img).ok_or(SfError::CallFailed)
-    }
-
     /// Update a part of the texture from the contents of a window.
     ///
     /// This function does nothing if either the texture or the window was not previously created.
@@ -288,17 +260,6 @@ impl Texture {
         y: u32,
     ) {
         unsafe { ffi::sfTexture_updateFromRenderWindow(self, render_window, x, y) }
-    }
-
-    /// Update a part of the texture from an image.
-    ///
-    /// This function does nothing if the texture was not previously created.
-    ///
-    /// # Safety
-    /// No additional check is performed on the size of the image, passing an invalid combination
-    /// of image size and offset will lead to an _undefined behavior_.
-    pub unsafe fn update_from_image(&mut self, image: &Image, x: u32, y: u32) {
-        unsafe { ffi::sfTexture_updateFromImage(self, image, x, y) }
     }
 
     /// Update a part of this texture from another texture.

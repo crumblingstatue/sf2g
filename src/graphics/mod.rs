@@ -9,7 +9,6 @@ pub use {
         convex_shape::ConvexShape,
         font::{Font, Info as FontInfo},
         glyph::Glyph,
-        image::{Image, PixelAccessError},
         primitive_type::PrimitiveType,
         rect::{FloatRect, IntRect, Rect},
         rectangle_shape::RectangleShape,
@@ -39,7 +38,6 @@ mod convex_shape;
 mod font;
 pub mod glsl;
 mod glyph;
-mod image;
 mod primitive_type;
 mod rect;
 mod rectangle_shape;
