@@ -108,7 +108,7 @@ fn main() {
     // we cannot support debug builds of SFML.
     cmake.profile("Release");
     cmake
-        .define("CMAKE_FIND_DEBUG_MODE", "TRUE") // I think I'll leave this on for now. Useful for debugging.
+        //.define("CMAKE_FIND_DEBUG_MODE", "TRUE") // When debugging not being able to find a library
         .define("BUILD_SHARED_LIBS", "FALSE")
         .define("SFML_INSTALL_PKGCONFIG_FILES", "FALSE")
         // Disable "install" step
