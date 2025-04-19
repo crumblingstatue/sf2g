@@ -2,11 +2,11 @@
 name = "sf2g"
 description = "Minimal Rust binding for SFML2 Graphics submodule"
 version = "0.24.0"
-authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
-documentation = "https://docs.rs/sfml"
-repository = "https://github.com/jeremyletang/rust-sfml"
+authors = ["crumblingstatue"]
+documentation = "https://docs.rs/sf2g"
+repository = "https://github.com/crumblingstatue/sf2g"
 license = "zlib-acknowledgement"
-keywords = ["sfml", "multimedia", "game"]
+keywords = ["sfml", "graphics", "game"]
 readme = "README.md"
 edition = "2024"
 rust-version = "1.86"
