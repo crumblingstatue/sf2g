@@ -20,7 +20,7 @@ use {
 /// and draw all the text you want with it. You can change its properties using
 /// `set_font`, `set_position`, `set_string`, etc., before drawing it, as many times as you need
 /// to.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Text<'s> {
     string: String,
     font: Option<&'s Font>,
@@ -670,13 +670,6 @@ impl<'s> Text<'s> {
         self.bounds.top = min_y;
         self.bounds.width = max_x - min_x;
         self.bounds.height = max_y - min_y;
-    }
-}
-
-impl<'s> Clone for Text<'s> {
-    /// Return a new Text or panic! if there is not enough memory
-    fn clone(&self) -> Text<'s> {
-        todo!()
     }
 }
 
