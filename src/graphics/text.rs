@@ -224,7 +224,7 @@ impl<'s> Text<'s> {
     /// Return the size of the characters
     #[must_use]
     pub fn character_size(&self) -> u32 {
-        todo!()
+        self.character_size
     }
 
     /// Set the font of the text
@@ -422,7 +422,7 @@ impl<'s> Text<'s> {
     /// Get the size of the line spacing factor.
     #[must_use]
     pub fn line_spacing(&self) -> f32 {
-        todo!()
+        self.line_spacing_factor
     }
     /// Set the line spacing factor.
     ///
