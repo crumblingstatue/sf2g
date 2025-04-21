@@ -8,7 +8,6 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/Touch.hpp>
 #include <cstddef>
@@ -178,9 +177,6 @@ extern "C" sfVector2i sfRenderWindow_mapCoordsToPixel_View(const sf::RenderWindo
 }
 
 extern "C" void sfRenderWindow_drawSprite(sf::RenderWindow *renderWindow, const sf::Sprite *object, const sf::RenderStates *states) {
-    renderWindow->draw(*object, *states);
-}
-extern "C" void sfRenderWindow_drawText(sf::RenderWindow *renderWindow, const sf::Text *object, const sf::RenderStates *states) {
     renderWindow->draw(*object, *states);
 }
 extern "C" void sfRenderWindow_drawShape(sf::RenderWindow *renderWindow, const sf::Shape *object, const sf::RenderStates *states) {

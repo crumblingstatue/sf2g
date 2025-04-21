@@ -165,8 +165,8 @@ impl RenderTarget for RenderTexture {
     fn map_coords_to_pixel_current_view(&self, point: Vector2f) -> Vector2i {
         unsafe { ffi::sfRenderTexture_mapCoordsToPixel(self, point) }
     }
-    fn draw_text(&mut self, text: &Text, rs: &RenderStates) {
-        unsafe { ffi::sfRenderTexture_drawText(self, text.raw(), rs) }
+    fn draw_text(&mut self, text: &mut Text, rs: &RenderStates) {
+        text.draw(self, rs);
     }
     fn draw_sprite(&mut self, sprite: &Sprite, rs: &RenderStates) {
         unsafe { ffi::sfRenderTexture_drawSprite(self, sprite.raw(), rs) }

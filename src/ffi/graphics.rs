@@ -11,7 +11,6 @@ decl_opaque! {
     pub(crate) sfShader;
     pub(crate) sfRectangleShape;
     pub(crate) sfSprite;
-    pub(crate) sfText;
 }
 
 type sfTexture = crate::graphics::Texture;

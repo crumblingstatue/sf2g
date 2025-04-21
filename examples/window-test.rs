@@ -72,8 +72,12 @@ fn main() -> SfResult<()> {
         }
         rw.clear(Color::BLACK);
         let fontsize = 16;
-        let mut txt = Text::new("Arrow keys to select mode, enter to set.", &font, fontsize);
-        rw.draw_text(&txt, &RenderStates::DEFAULT);
+        let mut txt = Text::new(
+            "Arrow keys to select mode, enter to set.".into(),
+            &font,
+            fontsize,
+        );
+        rw.draw_text(&mut txt, &RenderStates::DEFAULT);
         let mut y = fontsize as f32;
         for (i, cfg) in configs.iter().enumerate() {
             let fc = if i == cfg_idx {
@@ -82,20 +86,20 @@ fn main() -> SfResult<()> {
                 Color::WHITE
             };
             txt.set_fill_color(fc);
-            txt.set_string(&format!(
+            txt.set_string(format!(
                 "{}x{} \"{}\" ({:?})",
                 cfg.mode.0, cfg.mode.1, cfg.title, cfg.style
             ));
             txt.set_position((0., y));
-            rw.draw_text(&txt, &RenderStates::DEFAULT);
+            rw.draw_text(&mut txt, &RenderStates::DEFAULT);
             y += fontsize as f32;
         }
         let mut i = configs.len();
         y += fontsize as f32;
         txt.set_position((0., y));
         txt.set_fill_color(Color::WHITE);
-        txt.set_string("= Fullscreen modes =");
-        rw.draw_text(&txt, &RenderStates::DEFAULT);
+        txt.set_string("= Fullscreen modes =".into());
+        rw.draw_text(&mut txt, &RenderStates::DEFAULT);
         for mode in fs_modes.iter() {
             let n_rows = 23;
             let column = i / n_rows;
@@ -111,11 +115,11 @@ fn main() -> SfResult<()> {
             let gap = 16.0;
             let y = y + gap + (row * fontsize as usize) as f32;
             txt.set_position((x, y));
-            txt.set_string(&format!(
+            txt.set_string(format!(
                 "{}x{}x{}",
                 mode.width, mode.height, mode.bits_per_pixel
             ));
-            rw.draw_text(&txt, &RenderStates::DEFAULT);
+            rw.draw_text(&mut txt, &RenderStates::DEFAULT);
             i += 1;
         }
         rw.display();

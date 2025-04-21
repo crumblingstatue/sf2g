@@ -73,7 +73,7 @@ fn main() -> SfResult<()> {
     window.set_vertical_sync_enabled(true);
     let font = Font::from_file("sansation.ttf")?;
     let texture = Texture::from_file("devices.png")?;
-    let mut text = Text::new("", &font, 18);
+    let mut text = Text::new(String::new(), &font, 18);
     text.set_outline_color(Color::BLACK);
     text.set_outline_thickness(1.0);
     let mut click_counter = 0;
@@ -160,8 +160,8 @@ fn main() -> SfResult<()> {
         rs.texture = Some(&texture);
         window.draw_primitives(&buf, PrimitiveType::QUADS, &rs);
         rs.texture = None;
-        text.set_string(&format!("{} sprites\n{fps} fps", objects.len()));
-        window.draw_text(&text, &rs);
+        text.set_string(format!("{} sprites\n{fps} fps", objects.len()));
+        window.draw_text(&mut text, &rs);
         window.display();
         buf.clear();
         frames_rendered += 1;

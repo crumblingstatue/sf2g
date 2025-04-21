@@ -104,7 +104,6 @@ fn main() {
                 "CSFML/src/Graphics/RenderWindow.cpp",
                 "CSFML/src/Graphics/Shader.cpp",
                 "CSFML/src/Graphics/Sprite.cpp",
-                "CSFML/src/Graphics/Text.cpp",
                 "CSFML/src/Graphics/Texture.cpp",
                 "CSFML/src/Graphics/Transform.cpp",
                 "CSFML/src/Graphics/VertexBuffer.cpp",

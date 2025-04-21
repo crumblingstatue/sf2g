@@ -452,8 +452,8 @@ impl RenderTarget for RenderWindow {
     fn size(&self) -> Vector2u {
         unsafe { ffi::sfRenderWindow_getSize(self) }
     }
-    fn draw_text(&mut self, text: &Text, render_states: &RenderStates) {
-        unsafe { ffi::sfRenderWindow_drawText(self, text.raw(), render_states) }
+    fn draw_text(&mut self, text: &mut Text, render_states: &RenderStates) {
+        text.draw(self, render_states);
     }
     fn draw_sprite(&mut self, sprite: &Sprite, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawSprite(self, sprite.raw(), render_states) }

@@ -8,7 +8,6 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include <cstddef>
 
 extern "C" sf::RenderTexture *sfRenderTexture_new() {
@@ -82,9 +81,6 @@ extern "C" sfVector2i sfRenderTexture_mapCoordsToPixel_View(const sf::RenderText
 }
 
 extern "C" void sfRenderTexture_drawSprite(sf::RenderTexture *renderTexture, const sf::Sprite *object, const sf::RenderStates *states) {
-    renderTexture->draw(*object, *states);
-}
-extern "C" void sfRenderTexture_drawText(sf::RenderTexture *renderTexture, const sf::Text *object, const sf::RenderStates *states) {
     renderTexture->draw(*object, *states);
 }
 extern "C" void sfRenderTexture_drawShape(sf::RenderTexture *renderTexture, const sf::Shape *object, const sf::RenderStates *states) {

@@ -53,7 +53,7 @@ fn draw_button(
     shape.set_fill_color(rect_fill);
     text.set_position((rect.left as f32 + 12.0, rect.top as f32 + 8.0));
     text.set_fill_color(text_fill);
-    text.set_string(string);
+    text.set_string(string.to_owned());
     render_window.draw_rectangle_shape(shape, &RenderStates::DEFAULT);
     render_window.draw_text(text, &RenderStates::DEFAULT);
 }
@@ -237,7 +237,7 @@ fn main() -> SfResult<()> {
         rw.clear(Color::BLACK);
         // Draw system cursor set buttons
         let mut shape = RectangleShape::default();
-        let mut text = Text::new("", &font, 14);
+        let mut text = Text::new(String::new(), &font, 14);
         shape.set_outline_thickness(-1.0);
         shape.set_outline_color(Color::WHITE);
         for (i, b) in buttons.iter().enumerate() {

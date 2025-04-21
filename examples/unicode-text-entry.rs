@@ -29,11 +29,11 @@ fn main() -> SfResult<()> {
     };
     let mut string = String::from("This text can be edited.\nTry it!");
 
-    let mut text = Text::new(&string, &font, 24);
+    let mut text = Text::new(string.clone(), &font, 24);
     text.set_fill_color(Color::RED);
     text.set_outline_color(Color::YELLOW);
     text.set_outline_thickness(2.0);
-    let mut status_text = Text::new("", &font, 16);
+    let mut status_text = Text::new(String::new(), &font, 16);
     status_text.set_position((0., window.size().y as f32 - 64.0));
     let mut bold = false;
     let mut italic = false;
@@ -55,7 +55,7 @@ fn main() -> SfResult<()> {
                     else if unicode != 0x16 as char && unicode != 0x03 as char {
                         string.push(unicode);
                     }
-                    text.set_string(&string);
+                    text.set_string(string.clone());
                 }
                 Event::KeyPressed { code, .. } => {
                     match code {
@@ -107,10 +107,10 @@ fn main() -> SfResult<()> {
                 font.info().family
             )
         };
-        status_text.set_string(&status_string);
+        status_text.set_string(status_string);
 
         window.clear(Color::BLACK);
-        window.draw_text(&text, &RenderStates::DEFAULT);
+        window.draw_text(&mut text, &RenderStates::DEFAULT);
         if show_cursor {
             let mut end = text.find_character_pos(usize::MAX);
             end.x += 2.0;
@@ -123,9 +123,9 @@ fn main() -> SfResult<()> {
             rs.set_size((8.0, 24.0));
             window.draw_rectangle_shape(&rs, &RenderStates::DEFAULT);
         }
-        window.draw_text(&status_text, &RenderStates::DEFAULT);
+        window.draw_text(&mut status_text, &RenderStates::DEFAULT);
         window.display();
     }
-    println!("The final text is {:?}", text.string().to_rust_string());
+    println!("The final text is {:?}", text.string());
     Ok(())
 }

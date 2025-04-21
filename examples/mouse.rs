@@ -17,12 +17,12 @@ fn main() -> SfResult<()> {
     let font = Font::from_file("sansation.ttf")?;
     let mut circle = CircleShape::new(4., 30);
     let mut texts: Vec<Text> = Vec::new();
-    let mut mp_text = Text::new("", &font, 14);
+    let mut mp_text = Text::new(String::new(), &font, 14);
     let mut cursor_visible = false;
     let mut grabbed = false;
     macro_rules! push_text {
         ($x:expr, $y:expr, $fmt:expr, $($arg:tt)*) => {
-            let mut text = Text::new(&format!($fmt, $($arg)*), &font, 14);
+            let mut text = Text::new(format!($fmt, $($arg)*), &font, 14);
             text.set_position(($x as f32, $y as f32));
             texts.push(text);
         }
@@ -68,7 +68,7 @@ fn main() -> SfResult<()> {
             "invisible"
         };
         let grab_msg = if grabbed { "grabbed" } else { "not grabbed" };
-        mp_text.set_string(&format!(
+        mp_text.set_string(format!(
             "x: {}, y: {} (Window)\n\
              x: {}, y: {} (Desktop)\n\
              [{cur_vis_msg}] [{grab_msg}] ('V'/'G') to toggle\n\
@@ -101,7 +101,7 @@ fn main() -> SfResult<()> {
         if !cursor_visible {
             window.draw_circle_shape(&circle, &RenderStates::DEFAULT);
         }
-        window.draw_text(&mp_text, &RenderStates::DEFAULT);
+        window.draw_text(&mut mp_text, &RenderStates::DEFAULT);
         window.display();
     }
     Ok(())

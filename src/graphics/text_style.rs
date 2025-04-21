@@ -3,7 +3,7 @@
 bitflags::bitflags! {
     /// Available text styles.
     #[repr(C)]
-    #[derive(Debug)]
+    #[derive(Debug, Clone, Copy)]
     pub struct TextStyle: u32 {
         /// Regular characters, no style.
         const REGULAR = 0;

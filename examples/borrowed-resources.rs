@@ -48,19 +48,19 @@ fn main() -> SfResult<()> {
     convex_shape.set_point(5, (420., 120.));
 
     // Create an initialized text using the font.
-    let title = Text::new("Borrowed resources example!", &font, 50);
+    let mut title = Text::new("Borrowed resources example!".into(), &font, 50);
 
     // Create a second text using the same font.
     // This time, we create and initialize it separately.
     let mut second_text = Text::default();
-    second_text.set_string("This text shares the same font with the title!");
+    second_text.set_string("This text shares the same font with the title!".into());
     second_text.set_font(&font);
     second_text.set_fill_color(Color::GREEN);
     second_text.set_position((10.0, 350.0));
     second_text.set_character_size(20);
 
     // Create a third text using the same font.
-    let mut third_text = Text::new("This one too!", &font, 20);
+    let mut third_text = Text::new("This one too!".into(), &font, 20);
     third_text.set_position((300.0, 100.0));
     third_text.set_fill_color(Color::RED);
 
@@ -80,9 +80,9 @@ fn main() -> SfResult<()> {
         window.draw_circle_shape(&circle, &rs);
         window.draw_sprite(&sprite, &rs);
         window.draw_convex_shape(&convex_shape, &rs);
-        window.draw_text(&title, &rs);
-        window.draw_text(&second_text, &rs);
-        window.draw_text(&third_text, &rs);
+        window.draw_text(&mut title, &rs);
+        window.draw_text(&mut second_text, &rs);
+        window.draw_text(&mut third_text, &rs);
 
         // Little test here for `Shape::points`
         let mut circ = CircleShape::new(4.0, 30);

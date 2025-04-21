@@ -19,7 +19,7 @@ trait Effect {
     fn update(&mut self, t: f32, x: f32, y: f32) -> SfResult<()>;
     fn name(&self) -> &str;
     fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
+        &'a mut self,
         target: &mut RenderWindow,
         states: &RenderStates<'texture, 'shader, 'shader_texture>,
     );
@@ -50,7 +50,7 @@ impl Effect for Pixelate<'_> {
         "pixelate"
     }
     fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
+        &'a mut self,
         target: &mut RenderWindow,
         states: &RenderStates<'texture, 'shader, 'shader_texture>,
     ) {
@@ -87,7 +87,7 @@ In hac habitasse platea dictumst. Etiam fringilla est id odio dapibus sit amet s
 
 impl<'fo> WaveBlur<'fo> {
     fn new(font: &'fo Font) -> SfResult<Self> {
-        let mut text = Text::new(WAVEBLUR_TEXT, font, 22);
+        let mut text = Text::new(WAVEBLUR_TEXT.into(), font, 22);
         text.set_position((30., 20.));
         Ok(Self {
             text,
@@ -108,13 +108,13 @@ impl Effect for WaveBlur<'_> {
         "wave + blur"
     }
     fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
+        &'a mut self,
         target: &mut RenderWindow,
         states: &RenderStates<'texture, 'shader, 'shader_texture>,
     ) {
         let mut states = *states;
         states.shader = Some(&self.shader);
-        target.draw_text(&self.text, &states);
+        target.draw_text(&mut self.text, &states);
     }
 }
 
@@ -159,7 +159,7 @@ impl Effect for StormBlink {
         "storm + blink"
     }
     fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
+        &'a mut self,
         target: &mut RenderWindow,
         states: &RenderStates<'texture, 'shader, 'shader_texture>,
     ) {
@@ -229,7 +229,7 @@ impl Effect for Edge<'_> {
         "edge post-effect"
     }
     fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
+        &'a mut self,
         target: &mut RenderWindow,
         states: &RenderStates<'texture, 'shader, 'shader_texture>,
     ) {
@@ -293,7 +293,7 @@ impl Effect for Geometry<'_> {
         "Geometry Shader Billboards"
     }
     fn draw<'a: 'shader, 'texture, 'shader, 'shader_texture>(
-        &'a self,
+        &'a mut self,
         target: &mut RenderWindow,
         states: &RenderStates<'texture, 'shader, 'shader_texture>,
     ) {
@@ -335,11 +335,11 @@ fn main() -> SfResult<()> {
     text_bg.set_position((0., 520.));
     text_bg.set_color(Color::rgba(255, 255, 255, 200));
     let msg = format!("Current effect: {}", effects[current].name());
-    let mut desc = Text::new(&msg, &font, 20);
+    let mut desc = Text::new(msg, &font, 20);
     desc.set_position((10., 530.));
     desc.set_fill_color(Color::rgb(80, 80, 80));
     let msg = "Press left and right arrows to change the current shader";
-    let mut instructions = Text::new(msg, &font, 20);
+    let mut instructions = Text::new(msg.into(), &font, 20);
     instructions.set_position((280., 555.));
     instructions.set_fill_color(Color::rgb(80, 80, 80));
     let clock = Clock::start()?;
@@ -357,7 +357,7 @@ fn main() -> SfResult<()> {
                         } else {
                             current -= 1;
                         }
-                        desc.set_string(&format!("Current effect: {}", effects[current].name()));
+                        desc.set_string(format!("Current effect: {}", effects[current].name()));
                     }
                     Key::Right => {
                         if current == effects.len() - 1 {
@@ -365,7 +365,7 @@ fn main() -> SfResult<()> {
                         } else {
                             current += 1;
                         }
-                        desc.set_string(&format!("Current effect: {}", effects[current].name()));
+                        desc.set_string(format!("Current effect: {}", effects[current].name()));
                     }
                     _ => {}
                 },
@@ -381,8 +381,8 @@ fn main() -> SfResult<()> {
         window.clear(Color::rgb(255, 128, 0));
         effects[current].draw(&mut window, &RenderStates::DEFAULT);
         window.draw_sprite(&text_bg, &RenderStates::DEFAULT);
-        window.draw_text(&instructions, &RenderStates::DEFAULT);
-        window.draw_text(&desc, &RenderStates::DEFAULT);
+        window.draw_text(&mut instructions, &RenderStates::DEFAULT);
+        window.draw_text(&mut desc, &RenderStates::DEFAULT);
         window.display();
     }
     Ok(())

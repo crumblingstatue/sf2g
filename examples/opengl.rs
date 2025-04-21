@@ -41,9 +41,9 @@ fn main() -> SfResult<()> {
         let bg_sprite = Sprite::with_texture(&bg_tex);
 
         let font = Font::from_file("sansation.ttf")?;
-        let mut text = Text::new("SFML / OpenGL demo", &font, 32);
-        let mut srgb_instr = Text::new("Press space to toggle sRGB conversion", &font, 32);
-        let mut mipmap_instr = Text::new("Press return to toggle mipmapping", &font, 32);
+        let mut text = Text::new("SFML / OpenGL demo".into(), &font, 32);
+        let mut srgb_instr = Text::new("Press space to toggle sRGB conversion".into(), &font, 32);
+        let mut mipmap_instr = Text::new("Press return to toggle mipmapping".into(), &font, 32);
         text.set_fill_color(Color::rgba(255, 255, 255, 170));
         srgb_instr.set_fill_color(Color::rgba(255, 255, 255, 170));
         mipmap_instr.set_fill_color(Color::rgba(255, 255, 255, 170));
@@ -174,9 +174,9 @@ fn main() -> SfResult<()> {
                 eprintln!("Failed to set window as active: {e}");
             }
             window.push_gl_states();
-            window.draw_text(&text, &RenderStates::DEFAULT);
-            window.draw_text(&srgb_instr, &RenderStates::DEFAULT);
-            window.draw_text(&mipmap_instr, &RenderStates::DEFAULT);
+            window.draw_text(&mut text, &RenderStates::DEFAULT);
+            window.draw_text(&mut srgb_instr, &RenderStates::DEFAULT);
+            window.draw_text(&mut mipmap_instr, &RenderStates::DEFAULT);
             window.pop_gl_states();
             window.display();
         }

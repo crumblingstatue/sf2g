@@ -188,7 +188,7 @@ pub trait RenderTarget {
     fn reset_gl_states(&mut self);
 
     /// Draw Text
-    fn draw_text(&mut self, text: &Text, rs: &RenderStates);
+    fn draw_text(&mut self, text: &mut Text, rs: &RenderStates);
 
     /// Draw Sprite
     fn draw_sprite(&mut self, sprite: &Sprite, rs: &RenderStates);
