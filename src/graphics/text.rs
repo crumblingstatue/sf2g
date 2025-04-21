@@ -402,8 +402,9 @@ impl<'s> Text<'s> {
     ///
     /// Return the local bounding rectangle of the entity
     #[must_use]
-    pub fn local_bounds(&self) -> FloatRect {
-        todo!()
+    pub fn local_bounds(&mut self) -> FloatRect {
+        self.ensure_geometry_update();
+        self.bounds
     }
 
     /// Get the global bounding rectangle of a text
@@ -416,8 +417,8 @@ impl<'s> Text<'s> {
     ///
     /// Return the global bounding rectangle of the entity
     #[must_use]
-    pub fn global_bounds(&self) -> FloatRect {
-        todo!()
+    pub fn global_bounds(&mut self) -> FloatRect {
+        self.get_transform().transform_rect(self.local_bounds())
     }
     /// Get the size of the line spacing factor.
     #[must_use]
