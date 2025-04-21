@@ -1,42 +1,15 @@
-use std::{
-    env,
-    path::{Path, PathBuf},
-};
+use std::env;
 
-fn static_link_windows(feat_window: bool, feat_graphics: bool, env: WinEnv, build_lib_path: &Path) {
-    let arch = match env::var("CARGO_CFG_TARGET_ARCH").as_deref() {
-        Ok("x86") => "x86",
-        Ok("x86_64") => "x64",
-        _ => panic!("Failed to determine cpu arch (CARGO_CFG_TARGET_ARCH))"),
-    };
-    let sfml_extlibs_path: PathBuf = format!(
-        "SFML/extlibs/libs-{seg}/{arch}",
-        seg = env.sfml_extlib_name()
-    )
-    .into();
-    // Copy only needed SFML extlibs to out dir to avoid linking every ext lib.
-    // We don't need libFLAC, because we build it ourselves.
-    for lib in ["freetype", "openal32", "vorbisenc", "vorbisfile", "vorbis"] {
-        let lib_name = env.lib_filename(lib);
-        let from = sfml_extlibs_path.join(&lib_name);
-        let to = build_lib_path.join(&lib_name);
-        let result = std::fs::copy(&from, &to);
-        if let Err(e) = result {
-            println!("cargo:warning=Failed to copy {from:?} to {to:?}: {e}",);
-        }
-    }
+fn static_link_windows(feat_window: bool) {
     println!("cargo:rustc-link-lib=dylib=winmm");
     println!("cargo:rustc-link-lib=dylib=user32");
     if feat_window {
         println!("cargo:rustc-link-lib=dylib=opengl32");
         println!("cargo:rustc-link-lib=dylib=gdi32");
     }
-    if feat_graphics {
-        println!("cargo:rustc-link-lib=static=freetype");
-    }
 }
 
-fn static_link_linux(feat_window: bool, feat_graphics: bool) {
+fn static_link_linux(feat_window: bool) {
     println!("cargo:rustc-link-lib=dylib=udev");
     if feat_window {
         println!("cargo:rustc-link-lib=dylib=GL");
@@ -44,21 +17,6 @@ fn static_link_linux(feat_window: bool, feat_graphics: bool) {
         println!("cargo:rustc-link-lib=dylib=Xcursor");
         println!("cargo:rustc-link-lib=dylib=Xrandr");
     }
-    if feat_graphics {
-        unix_graphics_link_support_libs();
-    }
-}
-
-fn pkgconfig_probe_with_fallback(lib: &str, fallback: &str) {
-    if let Err(e) = pkg_config::probe_library(lib) {
-        eprintln!("cargo:warning=pkg-config failed: {e}.\nTrying manual link");
-        println!("cargo:{fallback}");
-    }
-}
-
-/// Link supporting libraries for graphics on unix platforms (currently only freetype)
-fn unix_graphics_link_support_libs() {
-    pkgconfig_probe_with_fallback("freetype2", "rustc-link-lib=dylib=freetype");
 }
 
 enum WinEnv {
@@ -73,27 +31,6 @@ impl WinEnv {
             Ok("msvc") => Some(Self::Msvc),
             _ => None,
         }
-    }
-    fn sfml_extlib_name(&self) -> &'static str {
-        match self {
-            WinEnv::Gnu => "mingw",
-            WinEnv::Msvc => "msvc",
-        }
-    }
-    fn lib_ext(&self) -> &'static str {
-        match self {
-            WinEnv::Gnu => ".a",
-            WinEnv::Msvc => ".lib",
-        }
-    }
-    fn lib_prefix(&self) -> &'static str {
-        match self {
-            WinEnv::Gnu => "lib",
-            WinEnv::Msvc => "",
-        }
-    }
-    fn lib_filename(&self, lib: &str) -> String {
-        [self.lib_prefix(), lib, self.lib_ext()].concat()
     }
 }
 
@@ -201,23 +138,22 @@ fn main() {
         build_lib_path.display()
     );
     println!("cargo:rustc-link-lib=static=rcsfml");
+    println!("cargo:rustc-link-lib=static=freetype2");
+    println!("cargo:rustc-link-lib=static=png");
+    println!("cargo:rustc-link-lib=static=z");
     link_sfml_subsystem("system");
     if is_unix && is_linux {
-        static_link_linux(feat_window, feat_graphics);
+        static_link_linux(feat_window);
     } else if is_windows {
         match win_env {
-            Some(env) => {
-                static_link_windows(feat_window, feat_graphics, env, &build_lib_path);
+            Some(_) => {
+                static_link_windows(feat_window);
             }
             None => {
                 panic!("Failed to determine windows environment (MSVC/Mingw)");
             }
         }
     } else if is_macos {
-        // Link freetype for mac
-        if feat_graphics {
-            unix_graphics_link_support_libs();
-        }
         // SFML contains Objective-C source files on OSX
         // https://github.com/SFML/SFML/issues/2920
         println!("cargo::rustc-link-arg=-ObjC");
