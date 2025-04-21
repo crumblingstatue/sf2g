@@ -37,8 +37,6 @@
 
 namespace sf
 {
-class InputStream;
-
 ////////////////////////////////////////////////////////////
 /// \brief Class for loading, manipulating and saving images
 ///
@@ -120,23 +118,6 @@ public:
     ///
     ////////////////////////////////////////////////////////////
     bool loadFromMemory(const void* data, std::size_t size);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load the image from a custom stream
-    ///
-    /// The supported image formats are bmp, png, tga, jpg, gif,
-    /// psd, hdr, pic and pnm. Some format options are not supported,
-    /// like jpeg with arithmetic coding or ASCII pnm.
-    /// If this function fails, the image is left unchanged.
-    ///
-    /// \param stream Source stream to read from
-    ///
-    /// \return True if loading was successful
-    ///
-    /// \see loadFromFile, loadFromMemory
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromStream(InputStream& stream);
 
     ////////////////////////////////////////////////////////////
     /// \brief Save the image to a file on disk

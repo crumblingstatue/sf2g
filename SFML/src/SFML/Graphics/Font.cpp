@@ -27,10 +27,6 @@
 ////////////////////////////////////////////////////////////
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/GLCheck.hpp>
-#ifdef SFML_SYSTEM_ANDROID
-    #include <SFML/System/Android/ResourceStream.hpp>
-#endif
-#include <SFML/System/InputStream.hpp>
 #include <SFML/System/Err.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -45,25 +41,6 @@
 
 namespace
 {
-    // FreeType callbacks that operate on a sf::InputStream
-    unsigned long read(FT_Stream rec, unsigned long offset, unsigned char* buffer, unsigned long count)
-    {
-        sf::Int64 convertedOffset = static_cast<sf::Int64>(offset);
-        sf::InputStream* stream = static_cast<sf::InputStream*>(rec->descriptor.pointer);
-        if (stream->seek(convertedOffset) == convertedOffset)
-        {
-            if (count > 0)
-                return static_cast<unsigned long>(stream->read(reinterpret_cast<char*>(buffer), static_cast<sf::Int64>(count)));
-            else
-                return 0;
-        }
-        else
-            return count > 0 ? 0 : 1; // error code is 0 if we're reading, or nonzero if we're seeking
-    }
-    void close(FT_Stream)
-    {
-    }
-
     // Helper to intepret memory as a specific type
     template <typename T, typename U>
     inline T reinterpret(const U& input)
@@ -127,21 +104,12 @@ m_pixelBuffer(copy.m_pixelBuffer)
 Font::~Font()
 {
     cleanup();
-
-    #ifdef SFML_SYSTEM_ANDROID
-
-    if (m_stream)
-        delete static_cast<priv::ResourceStream*>(m_stream);
-
-    #endif
 }
 
 
 ////////////////////////////////////////////////////////////
 bool Font::loadFromFile(const std::string& filename)
 {
-    #ifndef SFML_SYSTEM_ANDROID
-
     // Cleanup the previous resources
     cleanup();
     m_refCount = new int(1);
@@ -191,16 +159,6 @@ bool Font::loadFromFile(const std::string& filename)
     m_info.family = face->family_name ? face->family_name : std::string();
 
     return true;
-
-    #else
-
-    if (m_stream)
-        delete static_cast<priv::ResourceStream*>(m_stream);
-
-    m_stream = new priv::ResourceStream(filename);
-    return loadFromStream(*static_cast<priv::ResourceStream*>(m_stream));
-
-    #endif
 }
 
 
@@ -257,85 +215,6 @@ bool Font::loadFromMemory(const void* data, std::size_t sizeInBytes)
 
     return true;
 }
-
-
-////////////////////////////////////////////////////////////
-bool Font::loadFromStream(InputStream& stream)
-{
-    // Cleanup the previous resources
-    cleanup();
-    m_refCount = new int(1);
-
-    // Initialize FreeType
-    // Note: we initialize FreeType for every font instance in order to avoid having a single
-    // global manager that would create a lot of issues regarding creation and destruction order.
-    FT_Library library;
-    if (FT_Init_FreeType(&library) != 0)
-    {
-        err() << "Failed to load font from stream (failed to initialize FreeType)" << std::endl;
-        return false;
-    }
-    m_library = library;
-
-    // Make sure that the stream's reading position is at the beginning
-    stream.seek(0);
-
-    // Prepare a wrapper for our stream, that we'll pass to FreeType callbacks
-    FT_StreamRec* rec = new FT_StreamRec;
-    std::memset(rec, 0, sizeof(*rec));
-    rec->base               = NULL;
-    rec->size               = static_cast<unsigned long>(stream.getSize());
-    rec->pos                = 0;
-    rec->descriptor.pointer = &stream;
-    rec->read               = &read;
-    rec->close              = &close;
-
-    // Setup the FreeType callbacks that will read our stream
-    FT_Open_Args args;
-    args.flags  = FT_OPEN_STREAM;
-    args.stream = rec;
-    args.driver = 0;
-
-    // Load the new font face from the specified stream
-    FT_Face face;
-    if (FT_Open_Face(static_cast<FT_Library>(m_library), &args, 0, &face) != 0)
-    {
-        err() << "Failed to load font from stream (failed to create the font face)" << std::endl;
-        delete rec;
-        return false;
-    }
-
-    // Load the stroker that will be used to outline the font
-    FT_Stroker stroker;
-    if (FT_Stroker_New(static_cast<FT_Library>(m_library), &stroker) != 0)
-    {
-        err() << "Failed to load font from stream (failed to create the stroker)" << std::endl;
-        FT_Done_Face(face);
-        delete rec;
-        return false;
-    }
-
-    // Select the Unicode character map
-    if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0)
-    {
-        err() << "Failed to load font from stream (failed to set the Unicode character set)" << std::endl;
-        FT_Done_Face(face);
-        FT_Stroker_Done(stroker);
-        delete rec;
-        return false;
-    }
-
-    // Store the loaded font in our ugly void* :)
-    m_stroker = stroker;
-    m_face = face;
-    m_streamRec = rec;
-
-    // Store the font information
-    m_info.family = face->family_name ? face->family_name : std::string();
-
-    return true;
-}
-
 
 ////////////////////////////////////////////////////////////
 const Font::Info& Font::getInfo() const

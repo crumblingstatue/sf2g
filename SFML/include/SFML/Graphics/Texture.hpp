@@ -35,7 +35,6 @@
 
 namespace sf
 {
-class InputStream;
 class RenderTarget;
 class RenderTexture;
 class Text;
@@ -158,37 +157,6 @@ public:
     ///
     ////////////////////////////////////////////////////////////
     bool loadFromMemory(const void* data, std::size_t size, const IntRect& area = IntRect());
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load the texture from a custom stream
-    ///
-    /// This function is a shortcut for the following code:
-    /// \code
-    /// sf::Image image;
-    /// image.loadFromStream(stream);
-    /// texture.loadFromImage(image, area);
-    /// \endcode
-    ///
-    /// The \a area argument can be used to load only a sub-rectangle
-    /// of the whole image. If you want the entire image then leave
-    /// the default value (which is an empty IntRect).
-    /// If the \a area rectangle crosses the bounds of the image, it
-    /// is adjusted to fit the image size.
-    ///
-    /// The maximum size for a texture depends on the graphics
-    /// driver and can be retrieved with the getMaximumSize function.
-    ///
-    /// If this function fails, the texture is left unchanged.
-    ///
-    /// \param stream Source stream to read from
-    /// \param area   Area of the image to load
-    ///
-    /// \return True if loading was successful
-    ///
-    /// \see loadFromFile, loadFromMemory, loadFromImage
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromStream(InputStream& stream, const IntRect& area = IntRect());
 
     ////////////////////////////////////////////////////////////
     /// \brief Load the texture from an image

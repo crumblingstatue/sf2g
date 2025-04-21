@@ -9,7 +9,6 @@ set(SRC
     ${SRCROOT}/Err.cpp
     ${INCROOT}/Err.hpp
     ${INCROOT}/Export.hpp
-    ${INCROOT}/InputStream.hpp
     ${SRCROOT}/Lock.cpp
     ${INCROOT}/Lock.hpp
     ${SRCROOT}/Mutex.cpp
@@ -36,10 +35,6 @@ set(SRC
     ${INCROOT}/Vector2.inl
     ${INCROOT}/Vector3.hpp
     ${INCROOT}/Vector3.inl
-    ${SRCROOT}/FileInputStream.cpp
-    ${INCROOT}/FileInputStream.hpp
-    ${SRCROOT}/MemoryInputStream.cpp
-    ${INCROOT}/MemoryInputStream.hpp
 )
 source_group("" FILES ${SRC})
 
@@ -77,8 +72,6 @@ else()
             ${SRCROOT}/Android/Activity.hpp
             ${SRCROOT}/Android/Activity.cpp
             ${SRCROOT}/Android/NativeActivity.cpp
-            ${SRCROOT}/Android/ResourceStream.cpp
-            ${SRCROOT}/Android/ResourceStream.cpp
         )
     endif()
 

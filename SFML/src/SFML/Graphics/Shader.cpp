@@ -32,7 +32,6 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/GLCheck.hpp>
 #include <SFML/Window/Context.hpp>
-#include <SFML/System/InputStream.hpp>
 #include <SFML/System/Mutex.hpp>
 #include <SFML/System/Lock.hpp>
 #include <SFML/System/Err.hpp>
@@ -99,22 +98,6 @@ namespace
         {
             return false;
         }
-    }
-
-    // Read the contents of a stream into an array of char
-    bool getStreamContents(sf::InputStream& stream, std::vector<char>& buffer)
-    {
-        bool success = true;
-        sf::Int64 size = stream.getSize();
-        if (size > 0)
-        {
-            buffer.resize(static_cast<std::size_t>(size));
-            stream.seek(0);
-            sf::Int64 read = stream.read(&buffer[0], size);
-            success = (read == size);
-        }
-        buffer.push_back('\0');
-        return success;
     }
 
     // Transforms an array of 2D vectors into a contiguous array of scalars
@@ -343,84 +326,6 @@ bool Shader::loadFromMemory(const std::string& vertexShader, const std::string& 
     // Compile the shader program
     return compile(vertexShader.c_str(), geometryShader.c_str(), fragmentShader.c_str());
 }
-
-
-////////////////////////////////////////////////////////////
-bool Shader::loadFromStream(InputStream& stream, Type type)
-{
-    // Read the shader code from the stream
-    std::vector<char> shader;
-    if (!getStreamContents(stream, shader))
-    {
-        err() << "Failed to read shader from stream" << std::endl;
-        return false;
-    }
-
-    // Compile the shader program
-    if (type == Vertex)
-        return compile(&shader[0], NULL, NULL);
-    else if (type == Geometry)
-        return compile(NULL, &shader[0], NULL);
-    else
-        return compile(NULL, NULL, &shader[0]);
-}
-
-
-////////////////////////////////////////////////////////////
-bool Shader::loadFromStream(InputStream& vertexShaderStream, InputStream& fragmentShaderStream)
-{
-    // Read the vertex shader code from the stream
-    std::vector<char> vertexShader;
-    if (!getStreamContents(vertexShaderStream, vertexShader))
-    {
-        err() << "Failed to read vertex shader from stream" << std::endl;
-        return false;
-    }
-
-    // Read the fragment shader code from the stream
-    std::vector<char> fragmentShader;
-    if (!getStreamContents(fragmentShaderStream, fragmentShader))
-    {
-        err() << "Failed to read fragment shader from stream" << std::endl;
-        return false;
-    }
-
-    // Compile the shader program
-    return compile(&vertexShader[0], NULL, &fragmentShader[0]);
-}
-
-
-////////////////////////////////////////////////////////////
-bool Shader::loadFromStream(InputStream& vertexShaderStream, InputStream& geometryShaderStream, InputStream& fragmentShaderStream)
-{
-    // Read the vertex shader code from the stream
-    std::vector<char> vertexShader;
-    if (!getStreamContents(vertexShaderStream, vertexShader))
-    {
-        err() << "Failed to read vertex shader from stream" << std::endl;
-        return false;
-    }
-
-    // Read the geometry shader code from the stream
-    std::vector<char> geometryShader;
-    if (!getStreamContents(geometryShaderStream, geometryShader))
-    {
-        err() << "Failed to read geometry shader from stream" << std::endl;
-        return false;
-    }
-
-    // Read the fragment shader code from the stream
-    std::vector<char> fragmentShader;
-    if (!getStreamContents(fragmentShaderStream, fragmentShader))
-    {
-        err() << "Failed to read fragment shader from stream" << std::endl;
-        return false;
-    }
-
-    // Compile the shader program
-    return compile(&vertexShader[0], &geometryShader[0], &fragmentShader[0]);
-}
-
 
 ////////////////////////////////////////////////////////////
 void Shader::setUniform(const std::string& name, float x)
@@ -1074,28 +979,6 @@ bool Shader::loadFromMemory(const std::string& /* vertexShader */, const std::st
 {
     return false;
 }
-
-
-////////////////////////////////////////////////////////////
-bool Shader::loadFromStream(InputStream& /* stream */, Type /* type */)
-{
-    return false;
-}
-
-
-////////////////////////////////////////////////////////////
-bool Shader::loadFromStream(InputStream& /* vertexShaderStream */, InputStream& /* fragmentShaderStream */)
-{
-    return false;
-}
-
-
-////////////////////////////////////////////////////////////
-bool Shader::loadFromStream(InputStream& /* vertexShaderStream */, InputStream& /* geometryShaderStream */, InputStream& /* fragmentShaderStream */)
-{
-    return false;
-}
-
 
 ////////////////////////////////////////////////////////////
 void Shader::setUniform(const std::string& /* name */, float)

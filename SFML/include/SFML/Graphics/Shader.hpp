@@ -41,7 +41,6 @@
 namespace sf
 {
 class Color;
-class InputStream;
 class Texture;
 class Transform;
 
@@ -223,69 +222,6 @@ public:
     ///
     ////////////////////////////////////////////////////////////
     bool loadFromMemory(const std::string& vertexShader, const std::string& geometryShader, const std::string& fragmentShader);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load the vertex, geometry or fragment shader from a custom stream
-    ///
-    /// This function loads a single shader, vertex, geometry
-    /// or fragment, identified by the second argument.
-    /// The source code must be a valid shader in GLSL language.
-    /// GLSL is a C-like language dedicated to OpenGL shaders;
-    /// you'll probably need to read a good documentation for it
-    /// before writing your own shaders.
-    ///
-    /// \param stream Source stream to read from
-    /// \param type   Type of shader (vertex, geometry or fragment)
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see loadFromFile, loadFromMemory
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromStream(InputStream& stream, Type type);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load both the vertex and fragment shaders from custom streams
-    ///
-    /// This function loads both the vertex and the fragment
-    /// shaders. If one of them fails to load, the shader is left
-    /// empty (the valid shader is unloaded).
-    /// The source codes must be valid shaders in GLSL language.
-    /// GLSL is a C-like language dedicated to OpenGL shaders;
-    /// you'll probably need to read a good documentation for
-    /// it before writing your own shaders.
-    ///
-    /// \param vertexShaderStream   Source stream to read the vertex shader from
-    /// \param fragmentShaderStream Source stream to read the fragment shader from
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see loadFromFile, loadFromMemory
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromStream(InputStream& vertexShaderStream, InputStream& fragmentShaderStream);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load the vertex, geometry and fragment shaders from custom streams
-    ///
-    /// This function loads the vertex, geometry and fragment
-    /// shaders. If one of them fails to load, the shader is left
-    /// empty (the valid shader is unloaded).
-    /// The source codes must be valid shaders in GLSL language.
-    /// GLSL is a C-like language dedicated to OpenGL shaders;
-    /// you'll probably need to read a good documentation for
-    /// it before writing your own shaders.
-    ///
-    /// \param vertexShaderStream   Source stream to read the vertex shader from
-    /// \param geometryShaderStream Source stream to read the geometry shader from
-    /// \param fragmentShaderStream Source stream to read the fragment shader from
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see loadFromFile, loadFromMemory
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromStream(InputStream& vertexShaderStream, InputStream& geometryShaderStream, InputStream& fragmentShaderStream);
 
     ////////////////////////////////////////////////////////////
     /// \brief Specify value for \p float uniform

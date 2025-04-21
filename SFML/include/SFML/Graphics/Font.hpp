@@ -39,7 +39,6 @@
 
 namespace sf
 {
-class InputStream;
 
 ////////////////////////////////////////////////////////////
 /// \brief Class for loading and manipulating character fonts
@@ -126,28 +125,6 @@ public:
     ///
     ////////////////////////////////////////////////////////////
     bool loadFromMemory(const void* data, std::size_t sizeInBytes);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load the font from a custom stream
-    ///
-    /// The supported font formats are: TrueType, Type 1, CFF,
-    /// OpenType, SFNT, X11 PCF, Windows FNT, BDF, PFR and Type 42.
-    /// Warning: SFML cannot preload all the font data in this
-    /// function, so the contents of \a stream have to remain
-    /// valid as long as the font is used.
-    ///
-    /// \warning SFML cannot preload all the font data in this
-    /// function, so the stream has to remain accessible until
-    /// the sf::Font object loads a new font or is destroyed.
-    ///
-    /// \param stream Source stream to read from
-    ///
-    /// \return True if loading succeeded, false if it failed
-    ///
-    /// \see loadFromFile, loadFromMemory
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromStream(InputStream& stream);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the font information

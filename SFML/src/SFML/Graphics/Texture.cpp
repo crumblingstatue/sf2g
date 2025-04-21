@@ -238,15 +238,6 @@ bool Texture::loadFromMemory(const void* data, std::size_t size, const IntRect& 
     return image.loadFromMemory(data, size) && loadFromImage(image, area);
 }
 
-
-////////////////////////////////////////////////////////////
-bool Texture::loadFromStream(InputStream& stream, const IntRect& area)
-{
-    Image image;
-    return image.loadFromStream(stream) && loadFromImage(image, area);
-}
-
-
 ////////////////////////////////////////////////////////////
 bool Texture::loadFromImage(const Image& image, const IntRect& area)
 {
