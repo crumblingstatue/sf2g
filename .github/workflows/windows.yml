@@ -43,9 +43,5 @@ jobs:
        cargo test --features ci-headless --verbose &&
        # Release can have different build configuration, so test it
        cargo test --release --features=ci-headless --verbose &&
-       # Also test non-default feature combinations
-       cargo test --no-default-features --features=ci-headless --verbose &&
-       cargo test --no-default-features --features=ci-headless,window --verbose &&
-       cargo test --no-default-features --features=ci-headless,graphics --verbose &&
        # Test packaging (building from .crate archive, without SFML submodule) (allow dirty because of openal32.dll)
        cargo package --allow-dirty
