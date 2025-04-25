@@ -28,10 +28,8 @@ mod ffi;
 
 pub mod cpp;
 
-#[cfg(feature = "graphics")]
 pub mod graphics;
 pub mod system;
-#[cfg(feature = "window")]
 pub mod window;
 use std::{error::Error, fmt::Display};
 

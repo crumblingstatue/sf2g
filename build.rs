@@ -1,22 +1,18 @@
 use std::env;
 
-fn static_link_windows(feat_window: bool) {
+fn static_link_windows() {
     println!("cargo:rustc-link-lib=dylib=winmm");
     println!("cargo:rustc-link-lib=dylib=user32");
-    if feat_window {
-        println!("cargo:rustc-link-lib=dylib=opengl32");
-        println!("cargo:rustc-link-lib=dylib=gdi32");
-    }
+    println!("cargo:rustc-link-lib=dylib=opengl32");
+    println!("cargo:rustc-link-lib=dylib=gdi32");
 }
 
-fn static_link_linux(feat_window: bool) {
+fn static_link_linux() {
     println!("cargo:rustc-link-lib=dylib=udev");
-    if feat_window {
-        println!("cargo:rustc-link-lib=dylib=GL");
-        println!("cargo:rustc-link-lib=dylib=X11");
-        println!("cargo:rustc-link-lib=dylib=Xcursor");
-        println!("cargo:rustc-link-lib=dylib=Xrandr");
-    }
+    println!("cargo:rustc-link-lib=dylib=GL");
+    println!("cargo:rustc-link-lib=dylib=X11");
+    println!("cargo:rustc-link-lib=dylib=Xcursor");
+    println!("cargo:rustc-link-lib=dylib=Xrandr");
 }
 
 enum WinEnv {
@@ -37,8 +33,6 @@ impl WinEnv {
 fn main() {
     println!("cargo:rerun-if-changed=CSFML");
     println!("cargo:rerun-if-changed=SFML");
-    let feat_window = env::var("CARGO_FEATURE_WINDOW").is_ok();
-    let feat_graphics = env::var("CARGO_FEATURE_GRAPHICS").is_ok();
     let mut cmake = cmake::Config::new("SFML");
     let win_env = WinEnv::get();
     // Due to complications with static linking of MSVC runtime (debug version),
@@ -50,12 +44,6 @@ fn main() {
         .define("SFML_INSTALL_PKGCONFIG_FILES", "FALSE")
         // Disable "install" step
         .no_build_target(true);
-    if !feat_window {
-        cmake.define("SFML_BUILD_WINDOW", "FALSE");
-    }
-    if !feat_graphics {
-        cmake.define("SFML_BUILD_GRAPHICS", "FALSE");
-    }
     let cmake_build_path = cmake.build();
     let mut build = cc::Build::new();
     build
@@ -74,44 +62,30 @@ fn main() {
             "CSFML/src/System/SfString.cpp",
             "CSFML/src/System/SfStdString.cpp",
             "CSFML/src/System/SfStdVector.cpp",
+            "CSFML/src/Window/Cursor.cpp",
+            "CSFML/src/Window/Joystick.cpp",
+            "CSFML/src/Window/Keyboard.cpp",
+            "CSFML/src/Window/Mouse.cpp",
+            "CSFML/src/Window/Sensor.cpp",
+            "CSFML/src/Window/Touch.cpp",
+            "CSFML/src/Window/VideoMode.cpp",
+            "CSFML/src/Window/Window.cpp",
+            "CSFML/src/Window/Context.cpp",
+            "CSFML/src/Graphics/CircleShape.cpp",
+            "CSFML/src/Graphics/ConvexShape.cpp",
+            "CSFML/src/Graphics/Font.cpp",
+            "CSFML/src/Graphics/RectangleShape.cpp",
+            "CSFML/src/Graphics/RenderTexture.cpp",
+            "CSFML/src/Graphics/RenderWindow.cpp",
+            "CSFML/src/Graphics/Shader.cpp",
+            "CSFML/src/Graphics/Sprite.cpp",
+            "CSFML/src/Graphics/Texture.cpp",
+            "CSFML/src/Graphics/Transform.cpp",
+            "CSFML/src/Graphics/VertexBuffer.cpp",
+            "CSFML/src/Graphics/View.cpp",
         ]
         .iter(),
     );
-    if feat_window {
-        build.files(
-            [
-                "CSFML/src/Window/Cursor.cpp",
-                "CSFML/src/Window/Joystick.cpp",
-                "CSFML/src/Window/Keyboard.cpp",
-                "CSFML/src/Window/Mouse.cpp",
-                "CSFML/src/Window/Sensor.cpp",
-                "CSFML/src/Window/Touch.cpp",
-                "CSFML/src/Window/VideoMode.cpp",
-                "CSFML/src/Window/Window.cpp",
-                "CSFML/src/Window/Context.cpp",
-            ]
-            .iter(),
-        );
-    }
-    if feat_graphics {
-        build.files(
-            [
-                "CSFML/src/Graphics/CircleShape.cpp",
-                "CSFML/src/Graphics/ConvexShape.cpp",
-                "CSFML/src/Graphics/Font.cpp",
-                "CSFML/src/Graphics/RectangleShape.cpp",
-                "CSFML/src/Graphics/RenderTexture.cpp",
-                "CSFML/src/Graphics/RenderWindow.cpp",
-                "CSFML/src/Graphics/Shader.cpp",
-                "CSFML/src/Graphics/Sprite.cpp",
-                "CSFML/src/Graphics/Texture.cpp",
-                "CSFML/src/Graphics/Transform.cpp",
-                "CSFML/src/Graphics/VertexBuffer.cpp",
-                "CSFML/src/Graphics/View.cpp",
-            ]
-            .iter(),
-        );
-    }
     build.compile("rcsfml");
     // Need to probe Cargo's env as build.rs uses the default toolchain to
     // run the build meaning that #[cfg(..)]'s won't work
@@ -142,11 +116,11 @@ fn main() {
     println!("cargo:rustc-link-lib=static=z");
     link_sfml_subsystem("system");
     if is_unix && is_linux {
-        static_link_linux(feat_window);
+        static_link_linux();
     } else if is_windows {
         match win_env {
             Some(_) => {
-                static_link_windows(feat_window);
+                static_link_windows();
             }
             None => {
                 panic!("Failed to determine windows environment (MSVC/Mingw)");
@@ -160,12 +134,8 @@ fn main() {
         panic!("Uhhh... Can't determine your environment. Sorry.");
     }
 
-    if feat_window {
-        link_sfml_subsystem("window");
-    }
-    if feat_graphics {
-        link_sfml_subsystem("graphics");
-    }
+    link_sfml_subsystem("window");
+    link_sfml_subsystem("graphics");
 }
 
 fn link_sfml_subsystem(name: &str) {

@@ -3,8 +3,6 @@ use crate::{
     system::SfString as sfString,
     window::{VideoMode as sfVideoMode, joystick::Identification as sfJoystickIdentification},
 };
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 
 pub(super) type sfWindow = crate::window::Window;
 pub(super) type sfCursor = crate::window::Cursor;
@@ -305,7 +303,6 @@ type sfJoystickAxis = JoystickAxis;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[allow(missing_docs)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum MouseWheel {
     VerticalWheel,
     HorizontalWheel,
@@ -314,7 +311,6 @@ pub enum MouseWheel {
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[allow(missing_docs)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum MouseButton {
     Left,
     Right,
@@ -329,7 +325,6 @@ type sfMouseButton = MouseButton;
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[allow(missing_docs)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Key {
     Unknown = -1,
     A = 0,
@@ -438,7 +433,6 @@ pub enum Key {
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[allow(missing_docs)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Scancode {
     Unknown = -1,
     A = 0,

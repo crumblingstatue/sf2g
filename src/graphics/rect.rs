@@ -1,5 +1,3 @@
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use {
     crate::system::Vector2,
     num_traits::AsPrimitive,
@@ -9,7 +7,6 @@ use {
 /// Utility type for manipulating 2D axis-aligned rectangles.
 #[repr(C)]
 #[derive(Clone, PartialEq, Eq, Debug, Copy, Default)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Rect<T> {
     /// Left coordinate of the rectangle.
     pub left: T,

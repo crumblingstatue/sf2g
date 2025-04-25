@@ -18,10 +18,8 @@ macro_rules! decl_opaque {
     };
 }
 
-#[cfg(feature = "graphics")]
 pub(crate) mod graphics;
 pub(crate) mod system;
-#[cfg(any(feature = "window", feature = "graphics"))]
 pub(crate) mod window;
 
 use {

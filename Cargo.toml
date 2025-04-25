@@ -39,10 +39,6 @@ cargo-args = ["-Zunstable-options", "-Zrustdoc-scrape-examples"]
 rustdoc-args = ["-Zunstable-options", "--generate-link-to-definition"]
 
 [features]
-default = ["graphics"]
-window = ["dep:bitflags"]
-graphics = ["window", "dep:freetype-sys"]
-serde = ["dep:serde"]
 # Used to skip running certain tests on CI, since it's running in a headless environment.
 ci-headless = []
 
@@ -50,17 +46,11 @@ ci-headless = []
 link-cplusplus = "1.0.9"
 num-traits = "0.2.15"
 
-[dependencies.serde]
-version = "1.0"
-features = ["derive"]
-optional = true
-
 [dependencies.widestring]
 version = "1.0"
 
 [dependencies.bitflags]
 version = "2.3.3"
-optional = true
 
 [dependencies.image]
 version = "0.25.6"
@@ -69,7 +59,6 @@ default-features = false
 [dependencies.freetype-sys]
 version = "0.23"
 features = ["bundled"]
-optional = true
 
 # Required because "bundled" freetype-sys requires static libz
 [dependencies.libz-sys]
@@ -89,51 +78,42 @@ glu-sys = "0.1.4"
 
 [[example]]
 name = "borrowed-resources"
-required-features = ["graphics"]
 doc-scrape-examples = true
 
 [[example]]
 name = "mouse"
-required-features = ["graphics"]
 
 [[example]]
 name = "unicode-text-entry"
-required-features = ["graphics"]
 
 [[example]]
 name = "vertex-arrays"
-required-features = ["graphics"]
 
 [[example]]
 name = "shader"
-required-features = ["graphics", "image/png", "image/jpeg"]
+required-features = [ "image/png", "image/jpeg"]
 
 [[example]]
 name = "cursor"
-required-features = ["graphics"]
 
 [[example]]
 name = "vertex-buffers"
-required-features = ["graphics"]
 
 [[example]]
 name = "spritemark"
-required-features = ["graphics", "image/png"]
+required-features = ["image/png"]
 
 [[example]]
 name = "opengl"
-required-features = ["graphics", "image/png", "image/jpeg"]
+required-features = ["image/png", "image/jpeg"]
 
 [[example]]
 name = "joystick"
-required-features = ["window"]
 
 [[example]]
 name = "window-test"
-required-features = ["graphics", "window"]
 
 [[example]]
 name = "opengl-context"
-required-features = ["window"]
 
 [workspace]
