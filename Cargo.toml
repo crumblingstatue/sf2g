@@ -56,8 +56,8 @@ version = "2.3.3"
 version = "0.25.6"
 default-features = false
 
-[dependencies.freetype-sys]
-git = "https://github.com/crumblingstatue/freetype-sys-nopng.git"
+[dependencies.freetype-sys-nopng]
+version = "0.24"
 features = ["bundled"]
 
 [build-dependencies]
