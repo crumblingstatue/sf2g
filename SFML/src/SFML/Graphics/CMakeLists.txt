@@ -90,18 +90,7 @@ target_link_libraries(sfml-graphics PUBLIC sfml-window)
 
 # glad sources
 target_include_directories(sfml-graphics SYSTEM PRIVATE "${PROJECT_SOURCE_DIR}/extlibs/headers/glad/include")
-
-# let CMake know about our additional graphics libraries paths
-if(SFML_OS_WINDOWS)
-    set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extlibs/headers/freetype2")
-elseif(SFML_OS_MACOSX)
-    set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extlibs/headers/freetype2")
-    set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${PROJECT_SOURCE_DIR}/extlibs/libs-osx/Frameworks")
-elseif(SFML_OS_IOS)
-    set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extlibs/headers/freetype2")
-elseif(SFML_OS_ANDROID)
-    set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "${PROJECT_SOURCE_DIR}/extlibs/headers/freetype2")
-endif()
+target_include_directories(sfml-graphics SYSTEM PRIVATE "${PROJECT_SOURCE_DIR}/extlibs/headers/freetype2")
 
 # find external libraries
 if(SFML_OS_ANDROID)
@@ -115,9 +104,6 @@ endif()
 if((SFML_COMPILER_MSVC AND SFML_MSVC_VERSION GREATER_EQUAL 14) OR (SFML_COMPILER_CLANG AND SFML_OS_WINDOWS AND NOT MINGW))
     target_link_libraries(sfml-graphics PRIVATE legacy_stdio_definitions.lib)
 endif()
-
-sfml_find_package(Freetype INCLUDE "FREETYPE_INCLUDE_DIRS" LINK "FREETYPE_LIBRARY")
-target_link_libraries(sfml-graphics PRIVATE Freetype)
 
 # add preprocessor symbols
 target_compile_definitions(sfml-graphics PRIVATE "STBI_FAILURE_USERMSG")
