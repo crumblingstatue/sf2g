@@ -112,8 +112,6 @@ fn main() {
     );
     println!("cargo:rustc-link-lib=static=rcsfml");
     println!("cargo:rustc-link-lib=static=freetype2");
-    println!("cargo:rustc-link-lib=static=png");
-    println!("cargo:rustc-link-lib=static=z");
     link_sfml_subsystem("system");
     if is_unix && is_linux {
         static_link_linux();
