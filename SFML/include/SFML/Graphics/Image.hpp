@@ -85,41 +85,6 @@ public:
     void create(unsigned int width, unsigned int height, const Uint8* pixels);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Load the image from a file on disk
-    ///
-    /// The supported image formats are bmp, png, tga, jpg, gif,
-    /// psd, hdr, pic and pnm. Some format options are not supported,
-    /// like jpeg with arithmetic coding or ASCII pnm.
-    /// If this function fails, the image is left unchanged.
-    ///
-    /// \param filename Path of the image file to load
-    ///
-    /// \return True if loading was successful
-    ///
-    /// \see loadFromMemory, loadFromStream, saveToFile
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromFile(const std::string& filename);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Load the image from a file in memory
-    ///
-    /// The supported image formats are bmp, png, tga, jpg, gif,
-    /// psd, hdr, pic and pnm. Some format options are not supported,
-    /// like jpeg with arithmetic coding or ASCII pnm.
-    /// If this function fails, the image is left unchanged.
-    ///
-    /// \param data Pointer to the file data in memory
-    /// \param size Size of the data to load, in bytes
-    ///
-    /// \return True if loading was successful
-    ///
-    /// \see loadFromFile, loadFromStream
-    ///
-    ////////////////////////////////////////////////////////////
-    bool loadFromMemory(const void* data, std::size_t size);
-
-    ////////////////////////////////////////////////////////////
     /// \brief Save the image to a file on disk
     ///
     /// The format of the image is automatically deduced from
