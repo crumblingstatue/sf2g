@@ -2,7 +2,7 @@ name: Build and test (Linux)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'src/**'
       - 'examples/**'
@@ -11,7 +11,7 @@ on:
       - '**.lock'
       - '.github/workflows/linux.yml'
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'src/**'
       - 'examples/**'
