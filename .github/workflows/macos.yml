@@ -32,6 +32,7 @@ jobs:
     - uses: hecrj/setup-rust-action@v2
       with:
         rust-version: 1.86.0
+    - uses: actions/checkout@v4
     - name: Build
       run: |
        git submodule update --init
