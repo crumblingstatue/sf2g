@@ -69,6 +69,7 @@ impl Context {
 
 #[cfg_attr(not(feature = "ci-headless"), test)]
 fn test_settings() {
+    #![expect(clippy::unwrap_used)]
     use {crate::window::Window, std::thread};
 
     let window =
