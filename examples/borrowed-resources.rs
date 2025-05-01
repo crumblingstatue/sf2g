@@ -80,9 +80,9 @@ fn main() -> SfResult<()> {
         window.draw_circle_shape(&circle, &rs);
         window.draw_sprite(&sprite, &rs);
         window.draw_convex_shape(&convex_shape, &rs);
-        window.draw_text(&mut title, &rs);
-        window.draw_text(&mut second_text, &rs);
-        window.draw_text(&mut third_text, &rs);
+        title.draw(&mut *window, &rs);
+        second_text.draw(&mut *window, &rs);
+        third_text.draw(&mut *window, &rs);
 
         // Little test here for `Shape::points`
         let mut circ = CircleShape::new(4.0, 30);

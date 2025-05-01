@@ -174,9 +174,9 @@ fn main() -> SfResult<()> {
                 eprintln!("Failed to set window as active: {e}");
             }
             window.push_gl_states();
-            window.draw_text(&mut text, &RenderStates::DEFAULT);
-            window.draw_text(&mut srgb_instr, &RenderStates::DEFAULT);
-            window.draw_text(&mut mipmap_instr, &RenderStates::DEFAULT);
+            text.draw(&mut *window, &RenderStates::DEFAULT);
+            srgb_instr.draw(&mut *window, &RenderStates::DEFAULT);
+            mipmap_instr.draw(&mut *window, &RenderStates::DEFAULT);
             window.pop_gl_states();
             window.display();
         }

@@ -110,7 +110,7 @@ fn main() -> SfResult<()> {
         status_text.set_string(status_string);
 
         window.clear(Color::BLACK);
-        window.draw_text(&mut text, &RenderStates::DEFAULT);
+        text.draw(&mut *window, &RenderStates::DEFAULT);
         if show_cursor {
             let mut end = text.find_character_pos(usize::MAX);
             end.x += 2.0;
@@ -123,7 +123,7 @@ fn main() -> SfResult<()> {
             rs.set_size((8.0, 24.0));
             window.draw_rectangle_shape(&rs, &RenderStates::DEFAULT);
         }
-        window.draw_text(&mut status_text, &RenderStates::DEFAULT);
+        status_text.draw(&mut *window, &RenderStates::DEFAULT);
         window.display();
     }
     println!("The final text is {:?}", text.string());

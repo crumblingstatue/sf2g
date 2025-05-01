@@ -55,7 +55,7 @@ fn draw_button(
     text.set_fill_color(text_fill);
     text.set_string(string.to_owned());
     render_window.draw_rectangle_shape(shape, &RenderStates::DEFAULT);
-    render_window.draw_text(text, &RenderStates::DEFAULT);
+    text.draw(render_window, &RenderStates::DEFAULT);
 }
 
 fn bstyle(highlighted: bool, selected: bool, error: bool) -> ButtonStyle {

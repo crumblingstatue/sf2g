@@ -4,7 +4,7 @@ use crate::{
     ffi::graphics as ffi,
     graphics::{
         CircleShape, Color, ConvexShape, IntRect, PrimitiveType, RectangleShape, RenderStates,
-        RenderTarget, Sprite, Text, Texture, Vertex, VertexBuffer, View,
+        RenderTarget, Sprite, Texture, Vertex, VertexBuffer, View,
     },
     system::{Vector2f, Vector2i, Vector2u},
     window::ContextSettings,
@@ -164,9 +164,6 @@ impl RenderTarget for RenderTexture {
     }
     fn map_coords_to_pixel_current_view(&self, point: Vector2f) -> Vector2i {
         unsafe { ffi::sfRenderTexture_mapCoordsToPixel(self, point) }
-    }
-    fn draw_text(&mut self, text: &mut Text, rs: &RenderStates) {
-        text.draw(self, rs);
     }
     fn draw_sprite(&mut self, sprite: &Sprite, rs: &RenderStates) {
         unsafe { ffi::sfRenderTexture_drawSprite(self, sprite.raw(), rs) }

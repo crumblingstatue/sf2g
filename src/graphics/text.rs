@@ -448,7 +448,8 @@ impl<'s> Text<'s> {
     pub fn set_letter_spacing(&mut self, factor: f32) {
         self.letter_spacing_factor = factor;
     }
-    pub(crate) fn draw<RT: RenderTarget>(&mut self, rt: &mut RT, rs: &RenderStates) {
+    /// Draw this text to the desired [`RenderTarget`]
+    pub fn draw<RT: RenderTarget>(&mut self, rt: &mut RT, rs: &RenderStates) {
         let mut rs = *rs;
         self.ensure_geometry_update(); // TODO: Place inside if-let (borrow conflict)
         if let Some(font) = &self.font {

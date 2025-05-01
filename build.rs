@@ -33,6 +33,7 @@ impl WinEnv {
 fn main() {
     println!("cargo:rerun-if-changed=CSFML");
     println!("cargo:rerun-if-changed=SFML");
+    let feat_text = std::env::var("CARGO_FEATURE_TEXT").is_ok();
     let mut cmake = cmake::Config::new("SFML");
     let win_env = WinEnv::get();
     // Due to complications with static linking of MSVC runtime (debug version),
@@ -44,6 +45,7 @@ fn main() {
         .define("SFML_INSTALL_PKGCONFIG_FILES", "FALSE")
         // Disable "install" step
         .no_build_target(true);
+    cmake.define("SFML_BUILD_FONT", "TRUE");
     let cmake_build_path = cmake.build();
     let mut build = cc::Build::new();
     build
@@ -54,6 +56,7 @@ fn main() {
         .define("CSFML_GRAPHICS_EXPORTS", None)
         .define("SFML_STATIC", None)
         .include("CSFML/src/")
+        .include("CSFML/freetype2/")
         .include("SFML/include");
     build.files(
         [
@@ -73,7 +76,6 @@ fn main() {
             "CSFML/src/Window/Context.cpp",
             "CSFML/src/Graphics/CircleShape.cpp",
             "CSFML/src/Graphics/ConvexShape.cpp",
-            "CSFML/src/Graphics/Font.cpp",
             "CSFML/src/Graphics/RectangleShape.cpp",
             "CSFML/src/Graphics/RenderTexture.cpp",
             "CSFML/src/Graphics/RenderWindow.cpp",
@@ -86,6 +88,9 @@ fn main() {
         ]
         .iter(),
     );
+    if feat_text {
+        build.file("CSFML/src/Graphics/Font.cpp");
+    }
     build.compile("rcsfml");
     // Need to probe Cargo's env as build.rs uses the default toolchain to
     // run the build meaning that #[cfg(..)]'s won't work
@@ -111,7 +116,9 @@ fn main() {
         build_lib_path.display()
     );
     println!("cargo:rustc-link-lib=static=rcsfml");
-    println!("cargo:rustc-link-lib=static=freetype2");
+    if feat_text {
+        println!("cargo:rustc-link-lib=static=freetype2");
+    }
     link_sfml_subsystem("system");
     if is_unix && is_linux {
         static_link_linux();

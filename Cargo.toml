@@ -41,6 +41,7 @@ rustdoc-args = ["-Zunstable-options", "--generate-link-to-definition"]
 [features]
 # Used to skip running certain tests on CI, since it's running in a headless environment.
 ci-headless = []
+text = ["dep:freetype-sys-nopng"]
 
 [dependencies]
 link-cplusplus = "1.0.9"
@@ -59,6 +60,7 @@ default-features = false
 [dependencies.freetype-sys-nopng]
 version = "0.24"
 features = ["bundled"]
+optional = true
 
 [build-dependencies]
 cc = "1.0.79"
@@ -74,22 +76,26 @@ glu-sys = "0.1.4"
 [[example]]
 name = "borrowed-resources"
 doc-scrape-examples = true
+required-features = ["text"]
 
 [[example]]
 name = "mouse"
+required-features = ["text"]
 
 [[example]]
 name = "unicode-text-entry"
+required-features = ["text"]
 
 [[example]]
 name = "vertex-arrays"
 
 [[example]]
 name = "shader"
-required-features = [ "image/png", "image/jpeg"]
+required-features = ["text", "image/png", "image/jpeg"]
 
 [[example]]
 name = "cursor"
+required-features = ["text"]
 
 [[example]]
 name = "vertex-buffers"
@@ -107,6 +113,7 @@ name = "joystick"
 
 [[example]]
 name = "window-test"
+required-features = ["text"]
 
 [[example]]
 name = "opengl-context"

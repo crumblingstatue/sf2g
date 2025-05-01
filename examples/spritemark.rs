@@ -161,7 +161,7 @@ fn main() -> SfResult<()> {
         window.draw_primitives(&buf, PrimitiveType::QUADS, &rs);
         rs.texture = None;
         text.set_string(format!("{} sprites\n{fps} fps", objects.len()));
-        window.draw_text(&mut text, &rs);
+        text.draw(&mut *window, &rs);
         window.display();
         buf.clear();
         frames_rendered += 1;

@@ -71,20 +71,35 @@ pub fn sfConvexShape_setPoint(shape: *mut sfConvexShape, index: usize, point: sf
 pub fn sfConvexShape_getLocalBounds(shape: *const sfConvexShape) -> sfFloatRect;
 pub fn sfConvexShape_getGlobalBounds(shape: *const sfConvexShape) -> sfFloatRect;
 // Font.cpp
+#[cfg(feature = "text")]
 pub fn sfFont_new() -> *mut sfFont;
+#[cfg(feature = "text")]
 pub fn sfFont_del(font: *mut sfFont);
+#[cfg(feature = "text")]
 pub fn sfFont_cpy(font: *const sfFont) -> *mut sfFont;
+#[cfg(feature = "text")]
 pub fn sfFont_loadFromFile(font: *mut sfFont, filename: *const c_char) -> bool;
+#[cfg(feature = "text")]
 pub fn sfFont_loadFromMemory(font: *mut sfFont, data: *const u8, sizeInBytes: usize) -> bool;
+#[cfg(feature = "text")]
 pub fn sfFont_getGlyph(font: *const sfFont, codePoint: u32, characterSize: c_uint, bold: bool, outlineThickness: f32) -> sfGlyph;
+#[cfg(feature = "text")]
 pub fn sfFont_getKerning(font: *const sfFont, first: u32, second: u32, characterSize: c_uint) -> f32;
+#[cfg(feature = "text")]
 pub fn sfFont_getBoldKerning(font: *const sfFont, first: u32, second: u32, characterSize: c_uint) -> f32;
+#[cfg(feature = "text")]
 pub fn sfFont_getLineSpacing(font: *const sfFont, characterSize: c_uint) -> f32;
+#[cfg(feature = "text")]
 pub fn sfFont_getUnderlinePosition(font: *const sfFont, characterSize: c_uint) -> f32;
+#[cfg(feature = "text")]
 pub fn sfFont_getUnderlineThickness(font: *const sfFont, characterSize: c_uint) -> f32;
+#[cfg(feature = "text")]
 pub fn sfFont_getTexture(font: *const sfFont, characterSize: c_uint) -> *const sfTexture;
+#[cfg(feature = "text")]
 pub fn sfFont_isSmooth(font: *const sfFont) -> bool;
+#[cfg(feature = "text")]
 pub fn sfFont_setSmooth(font: *mut sfFont, smooth: bool);
+#[cfg(feature = "text")]
 pub fn sfFont_getInfo(font: *const sfFont) -> sfFontInfo;
 // RectangleShape.cpp
 pub fn sfRectangleShape_new() -> *mut sfRectangleShape;

@@ -4,7 +4,7 @@ use crate::{
     ffi::graphics as ffi,
     graphics::{
         CircleShape, Color, ConvexShape, IntRect, PrimitiveType, RectangleShape, RenderStates,
-        RenderTarget, Sprite, Text, Vertex, VertexBuffer, View,
+        RenderTarget, Sprite, Vertex, VertexBuffer, View,
     },
     system::{SfStrConv, Vector2f, Vector2i, Vector2u},
     window::{ContextSettings, Cursor, Event, Handle, Style, VideoMode, thread_safety},
@@ -451,9 +451,6 @@ impl RenderTarget for RenderWindow {
     }
     fn size(&self) -> Vector2u {
         unsafe { ffi::sfRenderWindow_getSize(self) }
-    }
-    fn draw_text(&mut self, text: &mut Text, render_states: &RenderStates) {
-        text.draw(self, render_states);
     }
     fn draw_sprite(&mut self, sprite: &Sprite, render_states: &RenderStates) {
         unsafe { ffi::sfRenderWindow_drawSprite(self, sprite.raw(), render_states) }

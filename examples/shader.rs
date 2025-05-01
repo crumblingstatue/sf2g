@@ -114,7 +114,7 @@ impl Effect for WaveBlur<'_> {
     ) {
         let mut states = *states;
         states.shader = Some(&self.shader);
-        target.draw_text(&mut self.text, &states);
+        self.text.draw(target, &states);
     }
 }
 
@@ -381,8 +381,8 @@ fn main() -> SfResult<()> {
         window.clear(Color::rgb(255, 128, 0));
         effects[current].draw(&mut window, &RenderStates::DEFAULT);
         window.draw_sprite(&text_bg, &RenderStates::DEFAULT);
-        window.draw_text(&mut instructions, &RenderStates::DEFAULT);
-        window.draw_text(&mut desc, &RenderStates::DEFAULT);
+        instructions.draw(&mut *window, &RenderStates::DEFAULT);
+        desc.draw(&mut *window, &RenderStates::DEFAULT);
         window.display();
     }
     Ok(())

@@ -15,6 +15,7 @@ decl_opaque! {
 
 type sfTexture = crate::graphics::Texture;
 type sfView = crate::graphics::View;
+#[cfg(feature = "text")]
 type sfFont = crate::graphics::Font;
 type sfRenderWindow = crate::graphics::RenderWindow;
 type sfRenderTexture = crate::graphics::RenderTexture;
@@ -141,6 +142,7 @@ pub enum ShaderType {
 
 type sfShaderType = ShaderType;
 
+#[cfg(feature = "text")]
 #[repr(C)]
 pub struct sfFontInfo {
     pub family: *const c_char,

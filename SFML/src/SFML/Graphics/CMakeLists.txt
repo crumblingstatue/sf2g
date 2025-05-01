@@ -9,8 +9,6 @@ set(SRC
     ${SRCROOT}/Color.cpp
     ${INCROOT}/Color.hpp
     ${INCROOT}/Export.hpp
-    ${SRCROOT}/Font.cpp
-    ${INCROOT}/Font.hpp
     ${SRCROOT}/Glsl.cpp
     ${INCROOT}/Glsl.hpp
     ${INCROOT}/Glsl.inl

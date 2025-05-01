@@ -7,7 +7,6 @@ pub use {
         circle_shape::CircleShape,
         color::Color,
         convex_shape::ConvexShape,
-        font::{Font, Info as FontInfo},
         glyph::Glyph,
         primitive_type::PrimitiveType,
         rect::{FloatRect, IntRect, Rect},
@@ -19,8 +18,6 @@ pub use {
         shader::Shader,
         shape::Shape,
         sprite::Sprite,
-        text::Text,
-        text_style::TextStyle,
         texture::Texture,
         transform::Transform,
         transformable::Transformable,
@@ -30,12 +27,17 @@ pub use {
     },
     crate::ffi::graphics::ShaderType,
 };
+#[cfg(feature = "text")]
+pub use self::{
+    font::{Font, Info as FontInfo},
+    text::Text,
+    text_style::TextStyle,
+};
 
 pub mod blend_mode;
 mod circle_shape;
 mod color;
 mod convex_shape;
-mod font;
 pub mod glsl;
 mod glyph;
 mod primitive_type;
@@ -48,7 +50,11 @@ mod render_window;
 mod shader;
 mod shape;
 mod sprite;
+#[cfg(feature = "text")]
+mod font;
+#[cfg(feature = "text")]
 mod text;
+#[cfg(feature = "text")]
 mod text_style;
 mod texture;
 mod transform;
