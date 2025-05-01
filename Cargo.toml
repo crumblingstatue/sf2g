@@ -1,7 +1,7 @@
 [package]
 name = "sf2g"
 description = "Minimal Rust binding for SFML2 Graphics submodule"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["crumblingstatue"]
 documentation = "https://docs.rs/sf2g"
 repository = "https://github.com/crumblingstatue/sf2g"
