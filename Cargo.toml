@@ -37,6 +37,7 @@ exclude = [
 [package.metadata.docs.rs]
 cargo-args = ["-Zunstable-options", "-Zrustdoc-scrape-examples"]
 rustdoc-args = ["-Zunstable-options", "--generate-link-to-definition"]
+all-features = true
 
 [features]
 # Used to skip running certain tests on CI, since it's running in a headless environment.
