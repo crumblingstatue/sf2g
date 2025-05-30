@@ -119,4 +119,8 @@ required-features = ["text"]
 [[example]]
 name = "opengl-context"
 
+[[example]]
+name = "text-scale"
+required-features = ["text"]
+
 [workspace]

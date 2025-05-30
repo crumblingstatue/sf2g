@@ -452,8 +452,9 @@ impl<'s> Text<'s> {
     pub fn draw<RT: RenderTarget>(&mut self, rt: &mut RT, rs: &RenderStates) {
         let mut rs = *rs;
         self.ensure_geometry_update(); // TODO: Place inside if-let (borrow conflict)
+        let tf = self.get_transform();
         if let Some(font) = &self.font {
-            rs.transform.combine(&self.transform);
+            rs.transform.combine(&tf);
             rs.transform.translate(self.position.x, self.position.y);
             rs.texture = Some(font.texture(self.character_size));
             if self.outline_thickness != 0.0 {
@@ -683,6 +684,7 @@ impl Transformable for Text<'_> {
         self.rotation = angle;
     }
     fn set_scale<S: Into<Vector2f>>(&mut self, scale: S) {
+        self.transform_need_update = true;
         self.scale = scale.into();
     }
     fn set_origin<O: Into<Vector2f>>(&mut self, origin: O) {
