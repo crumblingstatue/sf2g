@@ -23,7 +23,7 @@ fn main() -> SfResult<()> {
     macro_rules! push_text {
         ($x:expr, $y:expr, $fmt:expr, $($arg:tt)*) => {
             let mut text = Text::new(format!($fmt, $($arg)*), &font, 14);
-            text.set_position(($x as f32, $y as f32));
+            text.tf.position = [$x as f32, $y as f32];
             texts.push(text);
         }
     }
@@ -87,7 +87,7 @@ fn main() -> SfResult<()> {
                     .global_bounds()
                     .intersection(&texts[j].global_bounds())
                 {
-                    texts[j].move_((0., -intersect.height));
+                    texts[j].tf.position[1] -= intersect.height;
                 }
             }
         }

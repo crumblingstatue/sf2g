@@ -1,6 +1,6 @@
 use sf2g::{
     SfResult,
-    graphics::{Color, Font, RenderStates, RenderTarget, RenderWindow, Text, Transformable},
+    graphics::{Color, Font, RenderStates, RenderTarget, RenderWindow, Text},
     window::{ContextSettings, Event, Key, Style, VideoMode},
 };
 
@@ -90,13 +90,13 @@ fn main() -> SfResult<()> {
                 "{}x{} \"{}\" ({:?})",
                 cfg.mode.0, cfg.mode.1, cfg.title, cfg.style
             ));
-            txt.set_position((0., y));
+            txt.tf.position = [0., y];
             txt.draw(&mut *rw, &RenderStates::DEFAULT);
             y += fontsize as f32;
         }
         let mut i = configs.len();
         y += fontsize as f32;
-        txt.set_position((0., y));
+        txt.tf.position = [0., y];
         txt.set_fill_color(Color::WHITE);
         txt.set_string("= Fullscreen modes =".into());
         txt.draw(&mut *rw, &RenderStates::DEFAULT);
@@ -114,7 +114,7 @@ fn main() -> SfResult<()> {
             let x = left_pad + (column * 128) as f32;
             let gap = 16.0;
             let y = y + gap + (row * fontsize as usize) as f32;
-            txt.set_position((x, y));
+            txt.tf.position = [x, y];
             txt.set_string(format!(
                 "{}x{}x{}",
                 mode.width, mode.height, mode.bits_per_pixel

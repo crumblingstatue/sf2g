@@ -58,3 +58,40 @@ pub trait Transformable {
     /// Gets the inverse combined transform of the object.
     fn inverse_transform(&self) -> &Transform;
 }
+
+#[derive(Debug, Clone, Copy)]
+#[cfg(feature = "text")]
+pub struct TransformableData {
+    pub origin: [f32; 2],
+    pub position: [f32; 2],
+    pub rotation: f32,
+    pub scale: [f32; 2],
+}
+
+#[cfg(feature = "text")]
+impl Default for TransformableData {
+    fn default() -> Self {
+        Self {
+            origin: Default::default(),
+            position: Default::default(),
+            rotation: Default::default(),
+            scale: [1., 1.],
+        }
+    }
+}
+
+#[cfg(feature = "text")]
+impl TransformableData {
+    pub fn get(&self) -> Transform {
+        let angle = -self.rotation * std::f32::consts::PI / 180.0;
+        let cosine = angle.cos();
+        let sine = angle.sin();
+        let sxc = self.scale[0] * cosine;
+        let syc = self.scale[1] * cosine;
+        let sxs = self.scale[0] * sine;
+        let sys = self.scale[1] * sine;
+        let tx = -self.origin[0] * sxc - self.origin[1] * sys + self.position[0];
+        let ty = self.origin[0] * sxs - self.origin[1] * syc + self.position[1];
+        Transform::new(sxc, sys, tx, -sxs, syc, ty, 0.0, 0.0, 1.0)
+    }
+}

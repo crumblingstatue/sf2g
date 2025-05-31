@@ -34,7 +34,7 @@ fn main() -> SfResult<()> {
     text.set_outline_color(Color::YELLOW);
     text.set_outline_thickness(2.0);
     let mut status_text = Text::new(String::new(), &font, 16);
-    status_text.set_position((0., window.size().y as f32 - 64.0));
+    status_text.tf.position = [0., window.size().y as f32 - 64.0];
     let mut bold = false;
     let mut italic = false;
     let mut underlined = false;

@@ -1,9 +1,11 @@
 //! Implementation derived from SFML C++ code under zlib license.
 
 use {
-    super::{Glyph, PrimitiveType, RenderStates, RenderTarget, Vertex},
+    super::{
+        Glyph, PrimitiveType, RenderStates, RenderTarget, Vertex, transformable::TransformableData,
+    },
     crate::{
-        graphics::{Color, FloatRect, Font, TextStyle, Transform, Transformable},
+        graphics::{Color, FloatRect, Font, TextStyle},
         system::Vector2f,
     },
     core::f32,
@@ -36,14 +38,8 @@ pub struct Text<'s> {
     bounds: FloatRect,
     geometry_need_update: bool,
     _font_texture_id: u64, // TODO
-    origin: Vector2f,
-    position: Vector2f,
-    rotation: f32,
-    scale: Vector2f,
-    transform: Transform,
-    transform_need_update: bool,
-    inverse_transform: Transform,
-    _inverse_transform_need_update: bool, // TODO
+    /// Transform data
+    pub tf: TransformableData,
 }
 
 // Add an underline or strikethrough line to the vertex array
@@ -170,14 +166,7 @@ impl<'a> Default for Text<'a> {
             bounds: Default::default(),
             geometry_need_update: Default::default(),
             _font_texture_id: Default::default(),
-            origin: Default::default(),
-            position: Default::default(),
-            rotation: Default::default(),
-            scale: Default::default(),
-            transform: Default::default(),
-            transform_need_update: Default::default(),
-            inverse_transform: Default::default(),
-            _inverse_transform_need_update: Default::default(),
+            tf: TransformableData::default(),
         }
     }
 }
@@ -372,24 +361,7 @@ impl<'s> Text<'s> {
                 .advance()
                 + letter_spacing;
         }
-        self.get_transform().transform_point(pos)
-    }
-
-    fn get_transform(&mut self) -> Transform {
-        if self.transform_need_update {
-            let angle = -self.rotation * std::f32::consts::PI / 180.0;
-            let cosine = angle.cos();
-            let sine = angle.sin();
-            let sxc = self.scale.x * cosine;
-            let syc = self.scale.y * cosine;
-            let sxs = self.scale.x * sine;
-            let sys = self.scale.y * sine;
-            let tx = -self.origin.x * sxc - self.origin.y * sys + self.position.x;
-            let ty = self.origin.x * sxs - self.origin.y * syc + self.position.y;
-            self.transform = Transform::new(sxc, sys, tx, -sxs, syc, ty, 0.0, 0.0, 1.0);
-            self.transform_need_update = false;
-        }
-        self.transform
+        self.tf.get().transform_point(pos)
     }
 
     /// Get the local bounding rectangle of a text
@@ -418,7 +390,7 @@ impl<'s> Text<'s> {
     /// Return the global bounding rectangle of the entity
     #[must_use]
     pub fn global_bounds(&mut self) -> FloatRect {
-        self.get_transform().transform_rect(self.local_bounds())
+        self.tf.get().transform_rect(self.local_bounds())
     }
     /// Get the size of the line spacing factor.
     #[must_use]
@@ -452,10 +424,9 @@ impl<'s> Text<'s> {
     pub fn draw<RT: RenderTarget>(&mut self, rt: &mut RT, rs: &RenderStates) {
         let mut rs = *rs;
         self.ensure_geometry_update(); // TODO: Place inside if-let (borrow conflict)
-        let tf = self.get_transform();
+        let tf = self.tf.get();
         if let Some(font) = &self.font {
             rs.transform.combine(&tf);
-            rs.transform.translate(self.position.x, self.position.y);
             rs.texture = Some(font.texture(self.character_size));
             if self.outline_thickness != 0.0 {
                 rt.draw_primitives(&self.outline_vertices, PrimitiveType::TRIANGLES, &rs);
@@ -673,49 +644,5 @@ impl<'s> Text<'s> {
         self.bounds.top = min_y;
         self.bounds.width = max_x - min_x;
         self.bounds.height = max_y - min_y;
-    }
-}
-
-impl Transformable for Text<'_> {
-    fn set_position<P: Into<Vector2f>>(&mut self, position: P) {
-        self.position = position.into();
-    }
-    fn set_rotation(&mut self, angle: f32) {
-        self.rotation = angle;
-    }
-    fn set_scale<S: Into<Vector2f>>(&mut self, scale: S) {
-        self.transform_need_update = true;
-        self.scale = scale.into();
-    }
-    fn set_origin<O: Into<Vector2f>>(&mut self, origin: O) {
-        self.origin = origin.into();
-    }
-    fn position(&self) -> Vector2f {
-        self.position
-    }
-    fn rotation(&self) -> f32 {
-        self.rotation
-    }
-    fn get_scale(&self) -> Vector2f {
-        self.scale
-    }
-    fn origin(&self) -> Vector2f {
-        self.origin
-    }
-    fn move_<O: Into<Vector2f>>(&mut self, offset: O) {
-        let offset = offset.into();
-        self.transform.translate(offset.x, offset.y);
-    }
-    fn rotate(&mut self, angle: f32) {
-        self.rotation = angle;
-    }
-    fn scale<F: Into<Vector2f>>(&mut self, factors: F) {
-        self.scale = factors.into();
-    }
-    fn transform(&self) -> &Transform {
-        &self.transform
-    }
-    fn inverse_transform(&self) -> &Transform {
-        &self.inverse_transform
     }
 }

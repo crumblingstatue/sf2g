@@ -51,7 +51,7 @@ fn draw_button(
     };
     shape.set_outline_color(rect_outline);
     shape.set_fill_color(rect_fill);
-    text.set_position((rect.left as f32 + 12.0, rect.top as f32 + 8.0));
+    text.tf.position = [rect.left as f32 + 12.0, rect.top as f32 + 8.0];
     text.set_fill_color(text_fill);
     text.set_string(string.to_owned());
     render_window.draw_rectangle_shape(shape, &RenderStates::DEFAULT);
